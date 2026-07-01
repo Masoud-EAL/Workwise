@@ -304,7 +304,6 @@ color:var(--teal);margin:12px 2px 8px;}
     <div class="who" id="whoLine"></div>
     <div id="scenarioBox"></div>
 
-```
 <!-- choose -->
 <div class="opts" id="optsBox"></div>
 
@@ -321,7 +320,6 @@ color:var(--teal);margin:12px 2px 8px;}
 <button class="btn btn-primary" id="checkBtn" disabled>Check answer</button>
 <button class="btn btn-primary hidden" id="nextBtn">Next →</button>
 <div class="err hidden" id="errBox"></div>
-```
 
   </div>
 
@@ -615,25 +613,25 @@ const VOCAB = {
     ["hand in","submit","Please hand in your assessment by Friday."],
     ["fill in","replace someone temporarily","Can you fill in for me next Tuesday?"],
     ["back up","support or make a copy","Make sure you back up your files."],
-    ["take on","accept responsibility","I've taken on an extra class this term."],
-    ["step in","help temporarily","The coordinator stepped in when the teacher was away."],
+    ["take on","accept responsibility","I'll take on an extra class this term."],
+    ["step in","help temporarily","The coordinator can step in when the teacher is away."],
     ["put off","postpone","We've put off the meeting until next week."],
-    ["bring forward","move earlier","Can we bring the meeting forward to 10?"],
-    ["push back","delay","The deadline has been pushed back."],
+    ["bring forward","move earlier","Let's bring forward next week's meeting."],
+    ["push back","delay","Let's push back the deadline by a week."],
     ["set up","organise / prep","I'll set up the room before class."],
     ["carry out","complete / do","We need to carry out the assessment."],
     ["look into","investigate","I'll look into that issue."],
-    ["come up","happen / arise","A problem came up this morning."],
+    ["come up","happen / arise","A problem might come up this morning."],
     ["figure out","understand / solve","I'm still trying to figure out the Markbook."],
     ["speak up","speak louder","Could you speak up a little?"],
     ["wrap up","finish","Let's wrap up for today."],
-    ["chip in","contribute / help","Everyone chipped in to help."],
+    ["chip in","contribute / help","Everyone can chip in to help."],
     ["get back to","reply later","I'll get back to you this afternoon."],
-    ["call in","phone work to report absence","He called in sick today."],
+    ["call in","phone work to report absence","I might call in sick today."],
     ["clock in","officially start work","Staff clock in at 8:30."],
     ["clock off","finish work","I clock off at 4:00."],
     ["take over","assume responsibility","Can you take over this class?"],
-    ["pitch in","help","Everyone pitched in during enrolment week."],
+    ["pitch in","help","Everyone can pitch in during enrolment week."],
     ["keep up","continue successfully","It's hard to keep up with the paperwork."],
     ["go ahead","proceed","Go ahead when you're ready."],
     ["hold off","wait","Let's hold off until we hear back."],
@@ -652,7 +650,7 @@ const VOCAB = {
     ["flat out","extremely busy","Sorry, I'm flat out at the moment."],
     ["reckon","think / believe","I reckon it'll be fine."],
     ["give it a crack","try","Just give it a crack."],
-    ["pull your weight","do your share","Everyone needs to pull their weight."],
+    ["pull your weight","do your share","You need to pull your weight on this team."],
     ["on the same page","have the same understanding","Let's make sure we're on the same page."],
     ["in the loop","informed","Keep me in the loop."],
     ["out of the loop","uninformed","I've been out of the loop all week."],
@@ -667,7 +665,7 @@ const VOCAB = {
     ["that works for me","acceptable","Thursday? That works for me."],
     ["flick someone an email","send an email","I'll flick you an email later."],
     ["circle back","return to later","Let's circle back next week."],
-    ["take it offline","discuss privately","We'll take that offline."],
+    ["take it offline","discuss privately","Let's take it offline after the meeting."],
     ["keep me posted","keep me updated","Keep me posted on what happens."],
     ["on leave","away from work","She's on leave this week."],
     ["sickie","sick day (informal)","Looks like he's pulled a sickie."],
@@ -758,26 +756,47 @@ function buildQuickFireSession(){
   return shuffle(picked).slice(0,QF_ROUNDS);
 }
 
+// Strip citation annotations like "action (verb)" -> "action" so the phrase can be
+// blanked out of an example and graded cleanly.
+function blankTerm(term){ return String(term).replace(/\s*\([^)]*\)\s*/g,' ').replace(/\s+/g,' ').trim(); }
+// A non-revealing clue for "produce the expression" rounds: word count + first letter.
+function clueFor(term){
+  const words = String(term).trim().split(/\s+/);
+  const n = words.length;
+  const first = (words[0]||"").charAt(0).toLowerCase();
+  return `${n} word${n>1?"s":""}, starts with "${first}"`;
+}
 function buildVocabSession(){
   const chosen = pickRandom(vocabFlat(), VOCAB_ROUNDS);
-  const blankEx = (ex,term)=> ex.replace(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'i'),'___');
+  // Blank the term out of its example. Returns null when the term can't be found
+  // (e.g. the example uses an inflected form) so we never leave the answer visible.
+  const blankEx = (ex,term)=>{
+    const out = ex.replace(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'i'),'___');
+    return out===ex ? null : out;
+  };
   // does the blanked example still give useful context? (more than just the blank + punctuation)
   const hasContext = (blanked)=> blanked.replace(/___/g,'').replace(/[^a-zA-Z]/g,'').length >= 3;
   return chosen.map((v,i)=>{
     const kind = i%3; // rotate use / fit / meaning
+    const bt = blankTerm(v.term); // what the learner actually types / what we blank
     if(kind===0){
-      // USE IT: always lead with meaning; add the blanked example only if it keeps context
-      const blanked = blankEx(v.ex, v.term);
-      const scenario = hasContext(blanked)
-        ? `Complete this: ${blanked}`
-        : `Type the expression that means "${v.mean}".`;
+      // USE IT: produce the expression. Show it blanked in context when we can; otherwise
+      // give a clear meaning cue. Always attach the meaning + a structural clue.
+      const blanked = blankEx(v.ex, bt);
+      if(blanked && hasContext(blanked)){
+        return {type:"use", term:v.term, who:"Recall the expression",
+          scenario:`Complete this: ${blanked}`, prompt:`Means: ${v.mean} · ${clueFor(bt)}`,
+          answer:bt, tip:`Means: ${v.mean}.`, spoken:false};
+      }
       return {type:"use", term:v.term, who:"Recall the expression",
-        scenario, prompt:`Means: ${v.mean}`, answer:v.term, tip:`Means: ${v.mean}.`, spoken:false};
+        scenario:`Type the expression that means "${v.mean}".`, prompt:`Clue: ${clueFor(bt)}`,
+        answer:bt, tip:`Means: ${v.mean}.`, spoken:false};
     }
     if(kind===1){
-      // FIT: blank the term in its example; if no context, fall back to a meaning cue sentence
-      const blanked = blankEx(v.ex, v.term);
-      const scenario = hasContext(blanked) ? blanked : `Pick the expression that means "${v.mean}":`;
+      // FIT: blank the term in its example; if it can't be blanked, fall back to a meaning cue
+      // so the correct option is never spelled out in the sentence.
+      const blanked = blankEx(v.ex, bt);
+      const scenario = (blanked && hasContext(blanked)) ? blanked : `Pick the expression that means "${v.mean}":`;
       const distract = otherTerms(v.term,2);
       const options = shuffle([
         {text:v.term, correct:true, why:`"${v.term}" means ${v.mean}.`},
@@ -964,8 +983,9 @@ function renderRound(q){
     $("optsBox").classList.add("hidden");
     $("gapBox").classList.remove("hidden");
     let raw=escapeHTML(q.scenario||"");
+    // Replace the blank placeholder with the styled gap. If the prompt has no placeholder
+    // it's a self-contained instruction (e.g. a meaning cue) — don't append a stray blank.
     let sentence=raw.replace(/_{2,}/, '<span class="blank">?</span>');
-    if(sentence===raw) sentence=raw+' <span class="blank">?</span>';
     // always show a hint (meaning/tip) so the learner has context to answer from
     const hintText = q.prompt || q.tip || "";
     const hint = hintText ? `<p class="who" style="margin-top:8px;text-transform:none;letter-spacing:0;font-size:14px;color:var(--teal-deep);">💡 ${escapeHTML(hintText)}</p>` : "";
