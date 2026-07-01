@@ -385,6 +385,9 @@ const VOCAB_ROUNDS = 10;
 const QF_ROUNDS = 8;
 const CORP_ROUNDS = 8;
 const QF_TIME = { choose: 12, smalltalk: 12, gap: 18, corp: 15 };
+// Reading-time bonus: longer scenarios/options get extra seconds so the round
+// stays fair. ~1 extra second per `perChar` characters beyond `baseline`, capped.
+const QF_READ = { baseline: 90, perChar: 18, maxExtra: 12 };
 
 /* ---- helpers ---- */
 const $ = id => document.getElementById(id);
@@ -889,7 +892,16 @@ function startCorp(){ runStart("corp", buildCorpSession); }
 /* ---- timer (Quick Fire only) ---- */
 let qfTimer=null, qfStart=0, qfDuration=0;
 function isGapType(q){ return q.type==="gap"||q.type==="use"||q.type==="corpgap"||(!q.options||q.options.length===0); }
-function qfTimeFor(q){ return isGapType(q)?QF_TIME.gap:QF_TIME.choose; }
+function qfReadLen(q){
+  let len = (q.scenario||"").length + (q.subtitle||"").length + (q.prompt||"").length + (q.tip||"").length;
+  if(q.options) q.options.forEach(o=>{ len += (o.text||"").length; });
+  return len;
+}
+function qfTimeFor(q){
+  const base = isGapType(q)?QF_TIME.gap:QF_TIME.choose;
+  const extra = Math.min(QF_READ.maxExtra, Math.max(0, Math.round((qfReadLen(q)-QF_READ.baseline)/QF_READ.perChar)));
+  return base + extra;
+}
 function clearTimer(){ if(qfTimer){ clearInterval(qfTimer); qfTimer=null; } }
 function stopTimer(){ clearTimer(); }
 function elapsedSec(){ return Math.min(qfDuration,(Date.now()-qfStart)/1000); }
