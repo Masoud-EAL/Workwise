@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+
+<!-- WorkWise build 7 -->
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>WorkWise · Workplace Communication Practice</title>
+<style>
+  :root{
+    --ink:#1a2b2b;
+    --paper:#f3efe4;
+    --card:#fbf9f3;
+    --teal:#0f6e64;
+    --teal-deep:#0a4f48;
+    --coral:#e0664a;
+    --gold:#d9a441;
+    --line:#d8d0bd;
+    --muted:#6c7472;
+    --good:#2f8a6f;
+    --bad:#c2563d;
+    --shadow:0 6px 0 rgba(15,110,100,.10);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+  }
+  #app{
+    width:100%;
+    max-width:460px;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    padding:0 16px 28px;
+  }
+
+/* ––––– header ––––– */
+header{
+padding:18px 2px 12px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+position:sticky;top:0;
+background:var(–paper);
+z-index:5;
+}
+.brand{display:flex;align-items:center;gap:9px;}
+.logo{
+width:34px;height:34px;border-radius:10px;
+background:var(–teal);
+display:flex;align-items:center;justify-content:center;
+color:#fff;font-weight:800;font-size:18px;
+box-shadow:0 3px 0 var(–teal-deep);
+}
+.brand h1{
+font-size:19px;margin:0;letter-spacing:-.3px;font-weight:800;
+}
+.brand span{color:var(–teal);}
+.stats{display:flex;gap:14px;align-items:center;font-weight:700;font-size:14px;}
+.stat{display:flex;align-items:center;gap:4px;}
+.stat .ic{font-size:15px;}
+.stat.streak{color:var(–coral);}
+.stat.score{color:var(–teal-deep);}
+
+/* ––––– progress ––––– */
+.progress-wrap{padding:2px 2px 14px;}
+.bar{height:8px;border-radius:99px;background:#e6e0d0;overflow:hidden;}
+.bar i{display:block;height:100%;width:0;background:var(–teal);border-radius:99px;transition:width .4s ease;}
+.progress-label{font-size:12px;color:var(–muted);margin-top:6px;font-weight:600;}
+
+/* ––––– card ––––– */
+.card{
+background:var(–card);
+border:1px solid var(–line);
+border-radius:18px;
+padding:20px 18px 22px;
+box-shadow:var(–shadow);
+flex:1;
+display:flex;
+flex-direction:column;
+}
+.eyebrow{
+display:inline-flex;align-items:center;gap:6px;
+font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+color:var(–teal);
+margin-bottom:14px;
+}
+.eyebrow .dot{width:7px;height:7px;border-radius:99px;background:var(–coral);}
+.who{
+font-size:12px;color:var(–muted);font-weight:700;margin-bottom:8px;
+text-transform:uppercase;letter-spacing:.5px;
+}
+.scenario{
+font-size:19px;line-height:1.45;font-weight:600;margin:0 0 18px;
+}
+.scenario .quote{color:var(–teal-deep);}
+
+/* ––––– options ––––– */
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{
+text-align:left;
+background:#fff;
+border:1.5px solid var(–line);
+border-radius:13px;
+padding:14px 14px;
+font-size:15.5px;line-height:1.4;
+color:var(–ink);
+font-family:inherit;
+cursor:pointer;
+transition:transform .08s, border-color .15s, background .15s;
+}
+.opt:active{transform:scale(.99);}
+.opt.correct{border-color:var(–good);background:#eaf6f0;}
+.opt.wrong{border-color:var(–bad);background:#faece8;}
+.opt.dim{opacity:.5;}
+.opt .tag{
+float:right;font-size:13px;font-weight:800;margin-left:8px;
+}
+.opt.correct .tag{color:var(–good);}
+.opt.wrong .tag{color:var(–bad);}
+
+/* ––––– gap fill ––––– */
+.gaptext{font-size:19px;line-height:1.6;font-weight:600;margin:0 0 16px;}
+.blank{
+display:inline-block;min-width:70px;border-bottom:2.5px dashed var(–teal);
+color:var(–teal);text-align:center;font-weight:800;
+}
+.input-row{display:flex;gap:8px;}
+input[type=text]{
+flex:1;font-family:inherit;font-size:16px;
+padding:13px 14px;border:1.5px solid var(–line);border-radius:12px;
+background:#fff;color:var(–ink);
+}
+input[type=text]:focus{outline:none;border-color:var(–teal);}
+
+/* ––––– feedback ––––– */
+.feedback{
+margin-top:16px;border-radius:13px;padding:13px 14px;
+font-size:15px;line-height:1.45;font-weight:600;
+display:none;
+}
+.feedback.show{display:block;animation:pop .25s ease;}
+.feedback.good{background:#eaf6f0;color:var(–teal-deep);border:1px solid #bfe3d4;}
+.feedback.bad{background:#faece8;color:#9b3f29;border:1px solid #f0cabd;}
+.feedback .ic{font-weight:800;margin-right:4px;}
+@keyframes pop{from{transform:translateY(6px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+
+.sayaloud{
+margin-top:12px;font-size:13px;color:var(–muted);font-weight:700;
+display:flex;align-items:center;gap:6px;
+}
+
+/* ––––– buttons ––––– */
+.btn{
+margin-top:auto;
+border:none;border-radius:13px;
+padding:15px;font-size:16px;font-weight:800;font-family:inherit;
+cursor:pointer;width:100%;
+transition:transform .08s;
+}
+.btn:active{transform:scale(.98);}
+.btn-primary{background:var(–teal);color:#fff;box-shadow:0 4px 0 var(–teal-deep);}
+.btn-primary:disabled{background:#b9c4c2;box-shadow:0 4px 0 #9aa6a4;cursor:default;}
+.btn-ghost{background:transparent;color:var(–teal);box-shadow:none;border:1.5px solid var(–teal);}
+.btn-vocab{background:var(–gold);color:#4a3408;box-shadow:0 4px 0 #b5862f;margin-top:10px;}
+.btn-fire{background:var(–coral);color:#fff;box-shadow:0 4px 0 #b84a31;margin-top:10px;}
+.btn-corp{background:var(–teal-deep);color:#fff;box-shadow:0 4px 0 #063b35;margin-top:10px;}
+
+/* ––––– quick-fire timer ––––– */
+.timer-wrap{display:flex;align-items:center;gap:8px;margin:0 2px 12px;}
+.timer-bar{flex:1;height:9px;border-radius:99px;background:#e6e0d0;overflow:hidden;}
+.timer-bar i{display:block;height:100%;width:100%;background:var(–good);border-radius:99px;
+transition:width .25s linear, background .25s linear;}
+.timer-bar.warn i{background:var(–gold);}
+.timer-bar.danger i{background:var(–coral);}
+.timer-num{font-weight:800;font-size:14px;min-width:34px;text-align:right;color:var(–teal-deep);}
+.timer-num.danger{color:var(–coral);}
+.fire-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;
+letter-spacing:.5px;text-transform:uppercase;color:var(–coral);
+background:#fbe7e0;border:1px solid #f3c9bb;border-radius:99px;padding:3px 9px;margin-left:8px;}
+.btn-link{background:none;border:none;color:var(–teal);font-weight:700;font-size:14px;
+font-family:inherit;cursor:pointer;margin-top:14px;padding:4px;}
+.btn-link:active{opacity:.6;}
+.btn-row{margin-top:14px;display:flex;gap:10px;}
+.btn-row .btn{margin-top:0;}
+
+/* ––––– start & summary ––––– */
+.center{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:8px;}
+.big-emoji{font-size:52px;margin-bottom:4px;}
+.center h2{font-size:24px;margin:4px 0;letter-spacing:-.4px;}
+.center p{color:var(–muted);font-size:15px;line-height:1.5;margin:0 0 8px;max-width:300px;}
+.mode-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0 18px;}
+.how{display:flex;flex-direction:column;gap:11px;width:100%;margin:6px 0 14px;}
+.how-row{display:flex;align-items:flex-start;gap:12px;text-align:left;
+background:#fff;border:1px solid var(–line);border-radius:13px;padding:12px 14px;}
+.how-row .he{font-size:22px;line-height:1;flex-shrink:0;}
+.how-row b{display:block;font-size:15px;margin-bottom:2px;}
+.how-row span{font-size:13.5px;color:var(–muted);line-height:1.4;}
+.fineprint{font-size:12.5px;color:var(–muted);font-weight:600;margin:0 0 16px;}
+.pill{
+font-size:13px;font-weight:700;padding:7px 12px;border-radius:99px;
+background:#fff;border:1.5px solid var(–line);color:var(–muted);
+}
+.pill .e{margin-right:5px;}
+
+.summary-stat{display:flex;justify-content:space-between;align-items:center;
+width:100%;padding:13px 16px;background:#fff;border:1px solid var(–line);
+border-radius:12px;font-weight:700;font-size:15px;}
+.summary-stat .v{color:var(–teal-deep);font-weight:800;}
+.insight{
+width:100%;text-align:left;border-radius:12px;padding:13px 15px;font-size:14.5px;
+line-height:1.5;font-weight:600;
+}
+.insight.strength{background:#eaf6f0;color:var(–teal-deep);border:1px solid #bfe3d4;}
+.insight.work{background:#fdf3e2;color:#8a6313;border:1px solid #ecd9ad;}
+
+/* loading */
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:14px;color:var(–muted);font-weight:700;}
+.spinner{width:34px;height:34px;border:4px solid #e0dac8;border-top-color:var(–teal);border-radius:99px;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.browse-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.browse-head h2{font-size:20px;margin:0;}
+.browse-search{width:100%;margin-bottom:12px;}
+.browse-list{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;}
+.vgroup-title{font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;
+color:var(–teal);margin:12px 2px 8px;}
+.vitem{background:#fff;border:1px solid var(–line);border-radius:11px;padding:11px 13px;margin-bottom:8px;}
+.vitem .term{font-weight:800;font-size:15.5px;color:var(–teal-deep);}
+.vitem .mean{font-size:13px;color:var(–muted);font-weight:600;margin:2px 0 5px;}
+.vitem .ex{font-size:14px;line-height:1.4;font-style:italic;color:var(–ink);}
+.vcount{font-size:12.5px;color:var(–muted);font-weight:700;}
+
+.hidden{display:none!important;}
+.err{color:var(–bad);font-size:13px;font-weight:600;margin-top:10px;text-align:center;}
+
+/* ––––– corporate flashcards ––––– */
+.flip{background:#fff;border:1px solid var(–line);border-radius:13px;padding:14px;margin-bottom:10px;cursor:pointer;transition:transform .08s;}
+.flip:active{transform:scale(.99);}
+.flip .blunt{font-weight:700;font-size:15px;color:var(–ink);}
+.flip .polite{font-size:14px;color:var(–teal-deep);font-weight:600;margin-top:8px;line-height:1.4;display:none;}
+.flip.open .polite{display:block;animation:pop .2s ease;}
+.flip .hint{font-size:11.5px;color:var(–muted);font-weight:700;margin-top:6px;text-transform:uppercase;letter-spacing:.4px;}
+</style>
+
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">
+      <div class="logo">W</div>
+      <h1>Work<span>Wise</span></h1>
+    </div>
+    <div class="stats">
+      <div class="stat streak"><span class="ic">🔥</span><span id="streak">0</span></div>
+      <div class="stat score"><span class="ic">★</span><span id="score">0</span></div>
+    </div>
+  </header>
+
+  <div class="progress-wrap" id="progressWrap" style="display:none;">
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="progress-label" id="progressLabel">Round 1 of 6</div>
+  </div>
+
+  <!-- START SCREEN -->
+
+  <div class="card" id="startCard">
+    <div class="center">
+      <div class="big-emoji">💬</div>
+      <h2>Communicate Better at Work</h2>
+      <p>Practise real workplace English — best replies, gap-fills, small talk, and decoding corporate speak. All offline.</p>
+      <div class="how">
+        <div class="how-row"><span class="he">✅</span><div><b>Best answer</b><span>Tap the most natural, professional reply.</span></div></div>
+        <div class="how-row"><span class="he">✏️</span><div><b>Fill the gap</b><span>Type one word or a short phrase to complete the sentence.</span></div></div>
+        <div class="how-row"><span class="he">☕</span><div><b>Small talk</b><span>Staffroom & kitchen chat — with a say-it-aloud nudge.</span></div></div>
+        <div class="how-row"><span class="he">🕵️</span><div><b>Corporate Translator</b><span>Learn professional phrasing — plus decode corporate speak.</span></div></div>
+      </div>
+      <p class="fineprint">Works fully offline · no sign-in needed · instant feedback.</p>
+      <button class="btn btn-primary" id="startBtn">Start a session</button>
+      <button class="btn btn-vocab" id="vocabBtn">📚 Vocabulary practice</button>
+      <button class="btn btn-fire" id="fireBtn">⚡ Quick Fire (timed, harder)</button>
+      <button class="btn btn-corp" id="corpBtn">🕵️ Corporate Translator</button>
+      <button class="btn-link" id="browseBtn">Browse all expressions →</button>
+      <button class="btn-link" id="browseCorpBtn" style="margin-top:6px;">Browse corporate translations →</button>
+      <div class="err hidden" id="startErr" style="margin-top:14px;"></div>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+
+  <div class="card hidden" id="gameCard">
+    <div class="eyebrow"><span class="dot"></span><span id="roundType">Best answer</span><span class="fire-badge hidden" id="fireBadge">⚡ Quick Fire</span></div>
+    <div class="timer-wrap hidden" id="timerWrap">
+      <div class="timer-bar" id="timerBar"><i id="timerFill"></i></div>
+      <div class="timer-num" id="timerNum">8</div>
+    </div>
+    <div class="who" id="whoLine"></div>
+    <div id="scenarioBox"></div>
+
+```
+<!-- choose -->
+<div class="opts" id="optsBox"></div>
+
+<!-- gap fill -->
+<div id="gapBox" class="hidden">
+  <div class="input-row">
+    <input type="text" id="gapInput" placeholder="Type one word or a short phrase…" autocomplete="off" autocapitalize="sentences">
+  </div>
+</div>
+
+<div class="feedback" id="feedback"></div>
+<div class="sayaloud hidden" id="sayAloud"><span>🗣️</span><span>Say your answer out loud once before continuing.</span></div>
+
+<button class="btn btn-primary" id="checkBtn" disabled>Check answer</button>
+<button class="btn btn-primary hidden" id="nextBtn">Next →</button>
+<div class="err hidden" id="errBox"></div>
+```
+
+  </div>
+
+  <!-- LOADING -->
+
+  <div class="card hidden" id="loadCard">
+    <div class="loading">
+      <div class="spinner"></div>
+      <div id="loadMsg">Building your session…</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+
+  <div class="card hidden" id="summaryCard">
+    <div class="center">
+      <div class="big-emoji">🎉</div>
+      <h2>Session done</h2>
+      <div class="summary-stat"><span>Correct answers</span><span class="v" id="sumCorrect">0 / 6</span></div>
+      <div class="summary-stat"><span>Points earned</span><span class="v" id="sumPoints">0</span></div>
+      <div class="summary-stat"><span>Best streak</span><span class="v" id="sumStreak">0</span></div>
+      <div class="insight strength" id="sumStrength"></div>
+      <div class="insight work" id="sumWork"></div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" id="homeBtn">Home</button>
+        <button class="btn btn-primary" id="againBtn">Play again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BROWSE ALL -->
+
+  <div class="card hidden" id="browseCard">
+    <div class="browse-head">
+      <h2>All expressions</h2>
+      <button class="btn-link" id="browseHome" style="margin:0;">← Home</button>
+    </div>
+    <div class="vcount" id="vcount"></div>
+    <input type="text" class="browse-search" id="browseSearch" placeholder="Search an expression or meaning…" autocomplete="off">
+    <div class="browse-list" id="browseList"></div>
+  </div>
+  <!-- CORPORATE FLASHCARDS -->
+  <div class="card hidden" id="corpBrowseCard">
+    <div class="browse-head">
+      <h2>Corporate translations</h2>
+      <button class="btn-link" id="corpBrowseHome" style="margin:0;">← Home</button>
+    </div>
+    <div class="vcount">Tap a card to reveal the polite corporate version.</div>
+    <input type="text" class="browse-search" id="corpSearch" placeholder="Search a phrase…" autocomplete="off">
+    <div class="browse-list" id="corpBrowseList"></div>
+  </div>
+
+</div>
+
+<!-- WorkWise OFFLINE build 3 -->
+
+<script>
+/* ============ WorkWise — fully offline engine ============ */
+const ROUNDS = 6;
+const VOCAB_ROUNDS = 10;
+const QF_ROUNDS = 8;
+const CORP_ROUNDS = 8;
+const QF_TIME = { choose: 12, smalltalk: 12, gap: 18, corp: 15 };
+
+/* ---- helpers ---- */
+const $ = id => document.getElementById(id);
+function escapeHTML(s){
+  return String(s??"").replace(/[&<>"']/g, c=>(
+    {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]
+  ));
+}
+function shuffle(a){ const c=[...a]; for(let i=c.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [c[i],c[j]]=[c[j],c[i]]; } return c; }
+function pickRandom(arr,n){ return shuffle(arr).slice(0,Math.min(n,arr.length)); }
+function norm(s){ return String(s||"").toLowerCase().replace(/[-\/]/g," ").replace(/[^a-z0-9\s]/g,"").replace(/\s+/g," ").trim(); }
+
+/* ===== DATA ===== */
+// Corporate translations: blunt truth -> polite corporate version, with a key word/phrase for fill-blank
+const CORP = [
+  {blunt:"The CEO had one idea at 2 AM and now it's everyone's problem.", polite:"A new strategic opportunity has emerged.", key:"strategic opportunity", cat:"humour"},
+
+  {blunt:"We're creating work to prove we're working.", polite:"We're focused on demonstrating progress and visibility.", key:"progress and visibility", cat:"humour"},
+
+  {blunt:"The project is dead, but the PowerPoint is in.", polite:"We're keeping stakeholders informed.", key:"stakeholders informed", cat:"humour"},
+
+  {blunt:"Nobody understands the strategy.", polite:"We're still building alignment around the vision.", key:"alignment", cat:"humour"},
+
+  {blunt:"This project has owners from 12 teams.", polite:"This initiative relies on 12 cross-functional partnerships.", key:"cross-functional partnerships", cat:"humour"},
+
+  {blunt:"We're waiting for approval from people who aren't reading the document.", polite:"We're currently awaiting stakeholder sign-off.", key:"stakeholder sign-off", cat:"humour"},
+
+  {blunt:"This doc is 40 pages long and nobody will read it.", polite:"We've attempted to provide a reasonably comprehensive overview for everyone's consideration.", key:"comprehensive overview", cat:"humour"},
+
+  {blunt:"We have an extra process for everything except getting work done.", polite:"We're introducing additional layers of alignment to help teams work more effectively.", key:"additional layers of alignment", cat:"humour"},
+
+  {blunt:"We hired consultants to tell us what we already knew.", polite:"We engaged external experts to validate our thinking.", key:"validate our thinking", cat:"humour"},
+
+  {blunt:"We're moving slowly, but in a very organised way.", polite:"We're being deliberate about our pace to ensure long-term success.", key:"deliberate", cat:"humour"},
+
+  {blunt:"We're one rework away from starting over.", polite:"We're taking this opportunity to rethink how we work together.", key:"rethink", cat:"humour"},
+
+  {blunt:"This makes no sense.", polite:"I'm having some difficulty understanding the rationale behind this approach.", key:"rationale", cat:"humour"},
+
+  {blunt:"This isn't my problem.", polite:"I believe this may be better addressed by another team.", key:"another team", cat:"humour"},
+
+  {blunt:"You're overcomplicating it.", polite:"I think there may be an opportunity to simplify the narrative.", key:"simplify the narrative", cat:"humour"},
+
+  {blunt:"You just repeated what I said.", polite:"Thanks for reinforcing that point.", key:"reinforcing", cat:"humour"},
+
+  {blunt:"We need another meeting for this meeting.", polite:"Let's set up a working session to continue the conversation.", key:"working session", cat:"humour"},
+
+  {blunt:"We spent two weeks making PowerPoint slides.", polite:"We've invested significant effort in preparing the narrative.", key:"narrative", cat:"humour"},
+
+  {blunt:"I have absolutely no idea what's going on.", polite:"Let's circle back next week after gathering more feedback.", key:"circle back", cat:"humour"},
+
+  {blunt:"Too many people disagree.", polite:"We need a bit more alignment before moving forward.", key:"alignment", cat:"humour"},
+
+  {blunt:"This is bad news.", polite:"Just a quick heads up.", key:"heads up", cat:"humour"},
+
+  {blunt:"I want to micromanage this project.", polite:"Could you keep me posted on the progress?", key:"keep me posted", cat:"humour"},
+
+  {blunt:"I don't know what I want yet.", polite:"Let's continue exploring different directions.", key:"exploring different directions", cat:"humour"},
+
+  {blunt:"There's no bonus on this.", polite:"Huge shout out to the team for their incredible work.", key:"shout out", cat:"humour"},
+
+  {blunt:"Everything needs to be redesigned.", polite:"We have some fresh feedback from leadership.", key:"fresh feedback", cat:"humour"},
+
+  {blunt:"We're about to argue.", polite:"Let's take this discussion offline.", key:"offline", cat:"humour"},
+
+  {blunt:"I hate this idea.", polite:"That's an interesting perspective.", key:"interesting perspective", cat:"humour"},
+
+  {blunt:"We started too late and now it's your problem.", polite:"We'll need to move a little faster on this.", key:"move a little faster", cat:"humour"},
+
+  {blunt:"I changed my mind.", polite:"The strategy has evolved.", key:"evolved", cat:"humour"},
+
+  {blunt:"Nobody tested this.", polite:"On paper, this should work.", key:"On paper", cat:"humour"},
+
+  {blunt:"I didn't read the document.", polite:"Could you walk me through this again?", key:"walk me through", cat:"humour"},
+
+  {blunt:"Your weekend is gone.", polite:"This shouldn't take too long.", key:"shouldn't take too long", cat:"humour"},
+
+  {blunt:"I want more revisions.", polite:"We're almost there.", key:"almost there", cat:"humour"},
+
+  {blunt:"I don't have any real feedback.", polite:"Can we make it feel more premium?", key:"premium", cat:"humour"},
+  // ----- essential professional phrases -----
+  {blunt:"I agree with this plan.", polite:"That aligns well with our priorities — happy to proceed.", key:"aligns well", cat:"professional"},
+  {blunt:"I'll do it.", polite:"I'm happy to take ownership of this.", key:"take ownership", cat:"professional"},
+  {blunt:"Tell me what you need.", polite:"Please let me know how I can best support you.", key:"best support you", cat:"professional"},
+  {blunt:"I need this by Friday.", polite:"Would it be possible to have this ready by Friday?", key:"Would it be possible", cat:"professional"},
+  {blunt:"Can you help me?", polite:"When you have a moment, I'd appreciate your input on this.", key:"appreciate your input", cat:"professional"},
+  {blunt:"I'll send it later.", polite:"I'll follow up with the details shortly.", key:"follow up", cat:"professional"},
+  {blunt:"Let's decide now.", polite:"Shall we align on next steps before we close?", key:"align on next steps", cat:"professional"},
+  {blunt:"I don't understand.", polite:"Could you clarify what you mean by that?", key:"clarify", cat:"professional"},
+  {blunt:"Please explain more.", polite:"Could you elaborate on that point?", key:"elaborate", cat:"professional"},
+  {blunt:"That's a good idea.", polite:"That's a valuable suggestion — thank you for raising it.", key:"valuable suggestion", cat:"professional"},
+  {blunt:"I'm sorry for the mistake.", polite:"Apologies for the oversight — I'll correct it right away.", key:"oversight", cat:"professional"},
+  {blunt:"Thanks for your help.", polite:"I really appreciate your support on this.", key:"appreciate your support", cat:"professional"},
+  {blunt:"I can't make the meeting.", polite:"Unfortunately I have a clash — could we reschedule?", key:"reschedule", cat:"professional"},
+  {blunt:"Let's meet to talk about it.", polite:"Shall we set up a time to discuss this further?", key:"set up a time", cat:"professional"},
+  {blunt:"I'll check and get back to you.", polite:"Let me look into it and revert to you shortly.", key:"look into it", cat:"professional"},
+  {blunt:"This is urgent.", polite:"This is time-sensitive, so your prompt attention would be appreciated.", key:"time-sensitive", cat:"professional"},
+  {blunt:"Good work, everyone.", polite:"Thank you all for your hard work on this.", key:"hard work", cat:"professional"},
+  {blunt:"Can we start?", polite:"Shall we get started?", key:"get started", cat:"professional"},
+  {blunt:"Let's finish here.", polite:"Let's wrap up and pick this up next time.", key:"wrap up", cat:"professional"},
+  {blunt:"I'll take notes.", polite:"I'll capture the action items and share them afterwards.", key:"action items", cat:"professional"},
+  {blunt:"Who is doing what?", polite:"Could we confirm ownership of each task?", key:"confirm ownership", cat:"professional"},
+  {blunt:"Send me an update.", polite:"Could you keep me updated on how it progresses?", key:"keep me updated", cat:"professional"},
+  {blunt:"I need more information.", polite:"Could you provide a bit more detail on this?", key:"more detail", cat:"professional"},
+  {blunt:"Let's talk soon.", polite:"Let's touch base early next week.", key:"touch base", cat:"professional"},
+  {blunt:"I'll be away.", polite:"I'll be on leave next week and will respond on my return.", key:"on leave", cat:"professional"},
+  {blunt:"Please review this.", polite:"I'd welcome your feedback on the attached.", key:"welcome your feedback", cat:"professional"},
+  {blunt:"This works for me.", polite:"That works on my end — happy to go ahead.", key:"go ahead", cat:"professional"},
+  {blunt:"Let me know if that's okay.", polite:"Please let me know if that suits you.", key:"suits you", cat:"professional"},
+  {blunt:"I'll help where I can.", polite:"I'm glad to assist wherever needed.", key:"glad to assist", cat:"professional"},
+  {blunt:"We should plan ahead.", polite:"It would be worth mapping out the next steps in advance.", key:"next steps", cat:"professional"},
+  {blunt:"Nice to meet you.", polite:"It's a pleasure to connect with you.", key:"pleasure to connect", cat:"professional"},
+  {blunt:"I'll introduce you two.", polite:"I'd be glad to make an introduction.", key:"make an introduction", cat:"professional"},
+  {blunt:"Let's keep this short.", polite:"In the interest of time, let's keep this brief.", key:"interest of time", cat:"professional"},
+  {blunt:"Can you confirm?", polite:"Could you please confirm that this is correct?", key:"confirm", cat:"professional"},
+  {blunt:"I'll prioritise this.", polite:"I'll make this a priority and update you soon.", key:"make this a priority", cat:"professional"}
+];
+
+// Offline mixed-practice question bank. Types: choose (tap best reply), gap (type missing word).
+const PRACTICE = [
+  {type:"choose", who:"To your manager", scenario:"Your manager asks if you can take an extra class this term.",
+   options:[
+     {text:"I'd be happy to take it on — could we talk through the workload first?", correct:true, why:"Willing but sensible about workload; professional and warm."},
+     {text:"No, I already have too much.", correct:false, why:"Too blunt; shuts the door without discussion."},
+     {text:"Whatever you need, I'll just do it.", correct:false, why:"Over-accommodating; invites being overloaded."}
+   ], spoken:false},
+
+  {type:"choose", who:"To a colleague", scenario:"A colleague asks you to cover their class next Tuesday.",
+   options:[
+     {text:"Sure, I can fill in for you on Tuesday.", correct:true, why:"Clear, friendly, and uses natural workplace phrasing."},
+     {text:"I guess if no one else can.", correct:false, why:"Reluctant tone; sounds grudging."},
+     {text:"That's really not my job.", correct:false, why:"Unhelpful and cold with a colleague."}
+   ], spoken:false},
+
+  {type:"choose", who:"To your coordinator", scenario:"You'll miss a deadline by a day. What do you say?",
+   options:[
+     {text:"Just a heads up — I'll need one more day to get this right.", correct:true, why:"Gives early warning politely; owns it without over-apologising."},
+     {text:"It's not done. Sorry.", correct:false, why:"Too abrupt; gives no context or plan."},
+     {text:"It's basically the printer's fault.", correct:false, why:"Shifts blame; sounds defensive."}
+   ], spoken:false},
+
+  {type:"choose", who:"To a student", scenario:"A student hasn't handed in their assessment and looks stressed.",
+   options:[
+     {text:"No worries — let's find a time that works to get it done.", correct:true, why:"Supportive and solution-focused; reduces pressure."},
+     {text:"You've failed to submit it.", correct:false, why:"Harsh and discouraging for a stressed learner."},
+     {text:"I can't help you if you don't try.", correct:false, why:"Judgemental; damages trust."}
+   ], spoken:false},
+
+  {type:"choose", who:"To your manager", scenario:"You disagree with a new process your manager suggests.",
+   options:[
+     {text:"That could work — could I flag one concern about how it fits our timetable?", correct:true, why:"Respectful disagreement; opens a conversation."},
+     {text:"That won't work at all.", correct:false, why:"Dismissive; offers no room to discuss."},
+     {text:"Sure, sounds fine.", correct:false, why:"Hides a real concern; not honest."}
+   ], spoken:false},
+
+  {type:"choose", who:"To a colleague", scenario:"A colleague keeps interrupting you in a meeting.",
+   options:[
+     {text:"I'd like to finish my point, then I'm keen to hear yours.", correct:true, why:"Assertive but polite; keeps it collaborative."},
+     {text:"Stop interrupting me.", correct:false, why:"Confrontational in front of others."},
+     {text:"...never mind, go ahead.", correct:false, why:"Gives up your point; passive."}
+   ], spoken:false},
+
+  {type:"choose", who:"To your manager", scenario:"Your manager gives you feedback you find a bit unfair.",
+   options:[
+     {text:"Thanks for the feedback — can I share some context on that?", correct:true, why:"Stays open; invites dialogue rather than defending."},
+     {text:"That's completely unfair.", correct:false, why:"Defensive; escalates rather than clarifies."},
+     {text:"Okay. Fine.", correct:false, why:"Shuts down; leaves the misunderstanding in place."}
+   ], spoken:false},
+
+  {type:"choose", who:"To a colleague", scenario:"You need help but everyone looks busy.",
+   options:[
+     {text:"When you get a sec, could you help me figure something out?", correct:true, why:"Respects their time; low-pressure and clear."},
+     {text:"I need help right now.", correct:false, why:"Demanding; ignores that they're busy."},
+     {text:"Sorry, sorry, it's probably nothing, never mind...", correct:false, why:"Over-apologetic; undersells a real need."}
+   ], spoken:false},
+
+  {type:"gap", who:"To a colleague", scenario:"I'll ___ base with you tomorrow about the reports.", answer:"touch", tip:"A phrase meaning to briefly check in.", spoken:false},
+  {type:"gap", who:"To your manager", scenario:"Could you keep me ___ on how the project is going?", answer:"posted", tip:"Ask to be kept updated.", spoken:false},
+  {type:"gap", who:"To a colleague", scenario:"Let's ___ this discussion offline and sort it out later.", answer:"take", tip:"Move a conversation to a private setting.", spoken:false},
+  {type:"gap", who:"To your team", scenario:"Just a quick ___ up — the room has changed for tomorrow.", answer:"heads", tip:"A short advance warning.", spoken:false},
+  {type:"gap", who:"To a colleague", scenario:"I'm flat ___ this week, so I'll get back to you Friday.", answer:"out", tip:"An expression meaning extremely busy.", spoken:false},
+  {type:"gap", who:"To your coordinator", scenario:"I'd like to ___ a concern about the timetable.", answer:"flag", tip:"To highlight something for attention.", spoken:false},
+  {type:"gap", who:"To a colleague", scenario:"Can we ___ back on this next week?", answer:"circle", tip:"To return to a topic later.", spoken:false},
+  {type:"gap", who:"To your manager", scenario:"I'll ___ that request today and let you know.", answer:"action", tip:"To deal with a task (used as a verb).", spoken:false},
+
+  {type:"smalltalk", who:"Staffroom", scenario:"A colleague says: \"How's it going?\"",
+   options:[
+     {text:"Not bad, thanks — busy one today. You?", correct:true, why:"Natural, friendly, and returns the question."},
+     {text:"I am fine. And you are?", correct:false, why:"Stiff and textbook; not how it's said casually."},
+     {text:"Why do you ask?", correct:false, why:"Reads as suspicious; kills the small talk."}
+   ], spoken:true},
+
+  {type:"smalltalk", who:"Kitchen", scenario:"Someone thanks you for helping set up. You reply:",
+   options:[
+     {text:"No worries!", correct:true, why:"Warm, natural Australian reply to thanks."},
+     {text:"It was my duty.", correct:false, why:"Overly formal; sounds unnatural."},
+     {text:"You owe me one.", correct:false, why:"Turns a kind moment transactional."}
+   ], spoken:true},
+
+  {type:"smalltalk", who:"Staffroom", scenario:"It's cold. A colleague says: \"Bit chilly this morning!\"",
+   options:[
+     {text:"Yeah, freezing — had to dig out the big coat.", correct:true, why:"Keeps the easy chat going with a small detail."},
+     {text:"The temperature is 8 degrees Celsius.", correct:false, why:"Factual but not social; misses the point of small talk."},
+     {text:"I don't really talk about weather.", correct:false, why:"Blunt; ends the friendly exchange."}
+   ], spoken:true},
+
+  {type:"smalltalk", who:"Leaving work", scenario:"A colleague says: \"Have a good one!\" You reply:",
+   options:[
+     {text:"Cheers, you too — see ya!", correct:true, why:"Relaxed and reciprocal; fits the moment."},
+     {text:"Goodbye. I am now leaving.", correct:false, why:"Robotic; not how goodbyes sound here."},
+     {text:"Good one what?", correct:false, why:"Misreads a common friendly phrase."}
+   ], spoken:true},
+
+  {type:"gap", who:"Staffroom", scenario:"Thanks for that — ___ a legend.", answer:"you're", tip:"A casual way to praise someone (you're...).", spoken:true},
+  {type:"gap", who:"Kitchen", scenario:"Someone asks how you are. You say: \"Can't ___.\"", answer:"complain", tip:"A relaxed 'things are okay' reply.", spoken:true}
+];
+
+const VOCAB = {
+  "Workplace expressions":[
+    ["touch base","briefly talk / check in","I'll touch base with you tomorrow about the reports."],
+    ["check in","see how things are going","I'll check in with the students after the break."],
+    ["run through","explain step by step","Can you run through the process again?"],
+    ["go over","review","Let's go over the attendance records."],
+    ["sort out","solve / fix","I'll sort out the printing issue."],
+    ["hand in","submit","Please hand in your assessment by Friday."],
+    ["fill in","replace someone temporarily","Can you fill in for me next Tuesday?"],
+    ["back up","support or make a copy","Make sure you back up your files."],
+    ["take on","accept responsibility","I've taken on an extra class this term."],
+    ["step in","help temporarily","The coordinator stepped in when the teacher was away."],
+    ["put off","postpone","We've put off the meeting until next week."],
+    ["bring forward","move earlier","Can we bring the meeting forward to 10?"],
+    ["push back","delay","The deadline has been pushed back."],
+    ["set up","organise / prep","I'll set up the room before class."],
+    ["carry out","complete / do","We need to carry out the assessment."],
+    ["look into","investigate","I'll look into that issue."],
+    ["come up","happen / arise","A problem came up this morning."],
+    ["figure out","understand / solve","I'm still trying to figure out the Markbook."],
+    ["speak up","speak louder","Could you speak up a little?"],
+    ["wrap up","finish","Let's wrap up for today."],
+    ["chip in","contribute / help","Everyone chipped in to help."],
+    ["get back to","reply later","I'll get back to you this afternoon."],
+    ["call in","phone work to report absence","He called in sick today."],
+    ["clock in","officially start work","Staff clock in at 8:30."],
+    ["clock off","finish work","I clock off at 4:00."],
+    ["take over","assume responsibility","Can you take over this class?"],
+    ["pitch in","help","Everyone pitched in during enrolment week."],
+    ["keep up","continue successfully","It's hard to keep up with the paperwork."],
+    ["go ahead","proceed","Go ahead when you're ready."],
+    ["hold off","wait","Let's hold off until we hear back."],
+    ["flag","highlight","I'd like to flag a concern."],
+    ["flagging","tired / losing energy","I'm a bit flagging this afternoon."],
+    ["action (verb)","deal with","I'll action that request today."],
+    ["escalate","refer higher up","We may need to escalate the issue."],
+    ["allocate","assign","The manager allocated the classes."],
+    ["workload","amount of work","My workload is pretty heavy."],
+    ["roster","work schedule","Have you checked next week's roster?"],
+    ["induction","workplace orientation","All new staff complete an induction."],
+    ["onboarding","settling into a new role","The onboarding process takes a few weeks."],
+    ["upskill","learn new skills","I'm looking to upskill in assessment."],
+    ["deliverable","required output","The report is the final deliverable."],
+    ["full-on","very busy / intense","Today has been full-on."],
+    ["flat out","extremely busy","Sorry, I'm flat out at the moment."],
+    ["reckon","think / believe","I reckon it'll be fine."],
+    ["give it a crack","try","Just give it a crack."],
+    ["pull your weight","do your share","Everyone needs to pull their weight."],
+    ["on the same page","have the same understanding","Let's make sure we're on the same page."],
+    ["in the loop","informed","Keep me in the loop."],
+    ["out of the loop","uninformed","I've been out of the loop all week."],
+    ["heads up","advance warning","Just a heads up — the room has changed."],
+    ["FYI","for your information","FYI, tomorrow's meeting is online."],
+    ["ASAP","as soon as possible","Please send it ASAP."],
+    ["touch wood","hopefully it stays that way","Touch wood, attendance has been good."],
+    ["fair enough","understandable","You're tired? Fair enough."],
+    ["all good","no problem","All good, mate."],
+    ["too easy","certainly / no problem","Can you help? — Too easy."],
+    ["not ideal","inconvenient / problematic","The printer is down — not ideal."],
+    ["that works for me","acceptable","Thursday? That works for me."],
+    ["flick someone an email","send an email","I'll flick you an email later."],
+    ["circle back","return to later","Let's circle back next week."],
+    ["take it offline","discuss privately","We'll take that offline."],
+    ["keep me posted","keep me updated","Keep me posted on what happens."],
+    ["on leave","away from work","She's on leave this week."],
+    ["sickie","sick day (informal)","Looks like he's pulled a sickie."],
+    ["cover for","work in place of someone","Can you cover for me tomorrow?"],
+    ["probation","trial period","I'm still on probation."],
+    ["WFH","work from home","I'm WFH on Fridays."]
+  ],
+  "Small-talk expressions":[
+    ["How's it going?","How are you?","How's it going, mate?"],
+    ["How ya going?","Aussie 'How are you?'","How ya going?"],
+    ["Not bad","Pretty good","How are you? — Not bad."],
+    ["Can't complain","Things are okay","Can't complain."],
+    ["Been up to much?","Done anything interesting?","What've you been up to?"],
+    ["Busy one?","Busy day?","Busy one today?"],
+    ["Bit chilly","A little cold","Bit chilly this morning."],
+    ["Beautiful day","Nice weather","Beautiful day, isn't it?"],
+    ["Cheers","Thanks","Cheers for that."],
+    ["No worries","You're welcome","Thanks. — No worries."],
+    ["Good on ya","Well done","Good on ya, mate."],
+    ["You right there?","Are you okay?","You right there?"],
+    ["Have a good one","Goodbye","See ya, have a good one."],
+    ["See ya around","Goodbye","See ya around."],
+    ["Catch ya later","Goodbye","Catch ya later."],
+    ["Take care","Goodbye","Take care."],
+    ["Mate","Friendly address","Thanks, mate."],
+    ["No dramas","No problems","No dramas."],
+    ["Give me a sec","Wait a moment","Give me a sec."],
+    ["Hang on","Wait","Hang on a minute."],
+    ["Sounds good","I agree","Sounds good to me."],
+    ["Works for me","I agree","Tuesday works for me."],
+    ["Fingers crossed","Hope it works out","Fingers crossed we get the place."],
+    ["Hopefully","I hope so","Hopefully the weather improves."],
+    ["Lucky you","You're fortunate","Going on holiday? Lucky you."],
+    ["Good stuff","That's good","Passed your test? Good stuff."],
+    ["Bit of a pain","Annoying","The traffic was a bit of a pain."]
+  ]
+};
+
+/* ---- vocab helpers ---- */
+function vocabFlat(){
+  const out=[];
+  for(const g in VOCAB) VOCAB[g].forEach(([term,mean,ex])=>out.push({term,mean,ex,group:g}));
+  return out;
+}
+
+/* ---- distractor pools for generated vocab/corp options ---- */
+function otherTerms(exclude, n){
+  const all = vocabFlat().map(v=>v.term).filter(t=>norm(t)!==norm(exclude));
+  return pickRandom(all, n);
+}
+function otherPolite(exclude, n, cat){
+  let pool = CORP.filter(c=>c.polite!==exclude && (!cat || (c.cat||"humour")===cat)).map(c=>c.polite);
+  if(pool.length < n){ // top up from the other category if needed
+    const extra = CORP.filter(c=>c.polite!==exclude && !pool.includes(c.polite)).map(c=>c.polite);
+    pool = pool.concat(extra);
+  }
+  return pickRandom(pool, n);
+}
+
+/* ======== SESSION BUILDERS (offline) ======== */
+function buildSession(){
+  // Mixed practice: pull from PRACTICE bank, ensure a mix of types
+  const chooses = PRACTICE.filter(p=>p.type==="choose");
+  const gaps    = PRACTICE.filter(p=>p.type==="gap");
+  const smalls  = PRACTICE.filter(p=>p.type==="smalltalk");
+  const picked = [
+    ...pickRandom(chooses,2),
+    ...pickRandom(gaps,2),
+    ...pickRandom(smalls,1)
+  ];
+  // fill remaining up to ROUNDS from the leftover pool
+  const usedset = new Set(picked.map(p=>p.scenario));
+  const rest = PRACTICE.filter(p=>!usedset.has(p.scenario));
+  while(picked.length<ROUNDS && rest.length){ picked.push(rest.splice(Math.floor(Math.random()*rest.length),1)[0]); }
+  return shuffle(picked).slice(0,ROUNDS);
+}
+
+function buildQuickFireSession(){
+  // Harder & timed: reuse practice choose/gap + corporate items as tricky choices
+  const chooses = PRACTICE.filter(p=>p.type==="choose");
+  const gaps    = PRACTICE.filter(p=>p.type==="gap");
+  const corpChoose = pickRandom(CORP, 3).map(makeCorpChoose);
+  const picked = [
+    ...pickRandom(chooses,3),
+    ...pickRandom(gaps,2),
+    ...corpChoose
+  ];
+  return shuffle(picked).slice(0,QF_ROUNDS);
+}
+
+function buildVocabSession(){
+  const chosen = pickRandom(vocabFlat(), VOCAB_ROUNDS);
+  const blankEx = (ex,term)=> ex.replace(new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'i'),'___');
+  // does the blanked example still give useful context? (more than just the blank + punctuation)
+  const hasContext = (blanked)=> blanked.replace(/___/g,'').replace(/[^a-zA-Z]/g,'').length >= 3;
+  return chosen.map((v,i)=>{
+    const kind = i%3; // rotate use / fit / meaning
+    if(kind===0){
+      // USE IT: always lead with meaning; add the blanked example only if it keeps context
+      const blanked = blankEx(v.ex, v.term);
+      const scenario = hasContext(blanked)
+        ? `Complete this: ${blanked}`
+        : `Type the expression that means "${v.mean}".`;
+      return {type:"use", term:v.term, who:"Recall the expression",
+        scenario, prompt:`Means: ${v.mean}`, answer:v.term, tip:`Means: ${v.mean}.`, spoken:false};
+    }
+    if(kind===1){
+      // FIT: blank the term in its example; if no context, fall back to a meaning cue sentence
+      const blanked = blankEx(v.ex, v.term);
+      const scenario = hasContext(blanked) ? blanked : `Pick the expression that means "${v.mean}":`;
+      const distract = otherTerms(v.term,2);
+      const options = shuffle([
+        {text:v.term, correct:true, why:`"${v.term}" means ${v.mean}.`},
+        ...distract.map(d=>({text:d, correct:false, why:`Doesn't fit here.`}))
+      ]);
+      return {type:"fit", term:v.term, who:"Best fit", scenario, options, spoken:false};
+    }
+    // meaning: show meaning, pick the expression
+    const distract = otherTerms(v.term,2);
+    const options = shuffle([
+      {text:v.term, correct:true, why:`Correct — "${v.term}" = ${v.mean}.`},
+      ...distract.map(d=>({text:d, correct:false, why:`That's a different expression.`}))
+    ]);
+    return {type:"meaning", term:v.term, who:"Match meaning", scenario:`Which expression means: "${v.mean}"?`, options, spoken:false};
+  });
+}
+
+/* ---- corporate rounds ---- */
+function makeCorpChoose(c){
+  const distract = otherPolite(c.polite,2,c.cat||"humour");
+  const isProf=(c.cat||"humour")==="professional";
+  const options = shuffle([
+    {text:c.polite, correct:true, why:isProf?`The professional way to say it.`:`The polite corporate way to say it.`},
+    ...distract.map(d=>({text:d, correct:false, why:`That fits a different situation.`}))
+  ]);
+  return {type:"corp", who:"Corporate Translator",
+    scenario:(isProf?`What you mean: "`:`Blunt truth: "`)+c.blunt+`"`,
+    subtitle:isProf?"Pick the professional version:":"Pick the polite corporate version:", options, spoken:false, _corp:c};
+}
+function makeCorpGap(c){
+  // blank the key phrase in the polite sentence
+  const re = new RegExp(c.key.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'i');
+  const isProf=(c.cat||"humour")==="professional";
+  const lead=isProf?`What you mean: "`:`Blunt truth: "`;
+  const scenario = `${lead}${c.blunt}"  →  ${c.polite.replace(re,'___')}`;
+  return {type:"corpgap", who:"Corporate Translator", scenario, answer:c.key,
+    tip:isProf?`Fill the missing professional phrase.`:`Fill the missing corporate phrase.`, spoken:false, _corp:c};
+}
+function buildCorpSession(){
+  const chosen = pickRandom(CORP, CORP_ROUNDS);
+  return chosen.map((c,i)=> i%2===0 ? makeCorpChoose(c) : makeCorpGap(c));
+}
+
+/* ======== LOCAL GRADING ======== */
+function gradeGapLocal(q, userAns){
+  const u = norm(userAns);
+  const target = norm(q.answer||q.term||"");
+  if(!u) return {ok:false, feedback:"Type an answer to check."};
+  // accept exact, contains, or contained-in for short phrases
+  const ok = u===target || u.includes(target) || target.includes(u) && u.length>=3;
+  if(ok) return {ok:true, feedback:`Spot on — "${q.answer||q.term}" fits here.`};
+  // near miss: first word matches
+  return {ok:false, feedback:`Not quite — the phrase we're after is "${q.answer||q.term}".`};
+}
+
+/* ======== SUMMARY (offline, rule-based) ======== */
+function buildSummary(){
+  const byType={}; state.results.forEach(r=>{ byType[r.type]=byType[r.type]||{ok:0,n:0}; byType[r.type].n++; if(r.ok)byType[r.type].ok++; });
+  const pct = state.correct/Math.max(1,state.results.length);
+  // strength: best type
+  let bestType=null,bestRate=-1, worstType=null, worstRate=2;
+  for(const t in byType){ const r=byType[t].ok/byType[t].n; if(r>bestRate){bestRate=r;bestType=t;} if(r<worstRate){worstRate=r;worstType=t;} }
+  const label={choose:"choosing the most professional reply",gap:"recalling the right phrase",smalltalk:"natural small talk",
+               use:"producing expressions from memory",fit:"picking the best-fitting expression",meaning:"matching expressions to meaning",
+               corp:"decoding corporate speak",corpgap:"producing corporate phrasing"};
+  let strength = pct>=0.8 ? "Strong session — your professional word choice is really coming together."
+              : bestType ? `You did well at ${label[bestType]||"this"}.`
+              : "You kept your tone polite and professional.";
+  let work = worstType && worstRate<1 ? `Keep practising ${label[worstType]||"tricky phrasing"}.`
+              : "Try Quick Fire next to build speed under pressure.";
+  if(mode==="corp") work = worstRate<1 ? "Revisit the corporate flashcards to lock in the trickier phrases." : "Try the timed Quick Fire for a challenge.";
+  return {strength, work};
+}
+
+/* ======== STATE & FLOW ======== */
+let mode = "mixed"; // mixed | vocab | quickfire | corp
+let state = { round:0, score:0, streak:0, bestStreak:0, correct:0, questions:[], current:null, answered:false, results:[] };
+
+function totalRounds(){
+  return mode==="vocab"?VOCAB_ROUNDS : mode==="quickfire"?QF_ROUNDS : mode==="corp"?CORP_ROUNDS : ROUNDS;
+}
+function show(card){
+  ["startCard","gameCard","loadCard","summaryCard","browseCard","corpBrowseCard"].forEach(c=>{ const el=$(c); if(el) el.classList.add("hidden"); });
+  const t=$(card); if(t) t.classList.remove("hidden");
+}
+function updateStats(){ $("score").textContent=state.score; $("streak").textContent=state.streak; }
+function updateProgress(){
+  $("progressWrap").style.display="block";
+  $("barFill").style.width=(state.round/totalRounds()*100)+"%";
+  $("progressLabel").textContent=`Round ${state.round} of ${totalRounds()}`;
+}
+
+function runStart(newMode, builder){
+  mode=newMode;
+  state={round:0,score:0,streak:0,bestStreak:0,correct:0,questions:[],current:null,answered:false,results:[]};
+  updateStats();
+  $("startErr").classList.add("hidden");
+  try{
+    state.questions = builder();
+    if(!state.questions || !state.questions.length) throw new Error("empty");
+    nextRound();
+  }catch(e){
+    show("startCard");
+    const eb=$("startErr"); eb.textContent="Couldn't start that session. Please try again."; eb.classList.remove("hidden");
+  }
+}
+function startSession(){ runStart("mixed", buildSession); }
+function startVocab(){ runStart("vocab", buildVocabSession); }
+function startQuickFire(){ runStart("quickfire", buildQuickFireSession); }
+function startCorp(){ runStart("corp", buildCorpSession); }
+
+/* ---- timer (Quick Fire only) ---- */
+let qfTimer=null, qfStart=0, qfDuration=0;
+function isGapType(q){ return q.type==="gap"||q.type==="use"||q.type==="corpgap"||(!q.options||q.options.length===0); }
+function qfTimeFor(q){ return isGapType(q)?QF_TIME.gap:QF_TIME.choose; }
+function clearTimer(){ if(qfTimer){ clearInterval(qfTimer); qfTimer=null; } }
+function stopTimer(){ clearTimer(); }
+function elapsedSec(){ return Math.min(qfDuration,(Date.now()-qfStart)/1000); }
+function startTimer(q){
+  if(mode!=="quickfire"){ $("timerWrap").classList.add("hidden"); return; }
+  $("timerWrap").classList.remove("hidden");
+  qfDuration=qfTimeFor(q); qfStart=Date.now();
+  const bar=$("timerBar"),fill=$("timerFill"),num=$("timerNum");
+  bar.classList.remove("warn","danger"); num.classList.remove("danger");
+  fill.style.width="100%"; num.textContent=qfDuration;
+  clearTimer();
+  qfTimer=setInterval(()=>{
+    const rem=Math.max(0,qfDuration-(Date.now()-qfStart)/1000);
+    const pct=rem/qfDuration*100;
+    fill.style.width=pct+"%"; num.textContent=Math.ceil(rem);
+    if(pct<=25){ bar.classList.add("danger"); bar.classList.remove("warn"); num.classList.add("danger"); }
+    else if(pct<=50){ bar.classList.add("warn"); }
+    if(rem<=0){ clearTimer(); onTimeout(); }
+  },100);
+}
+function computeSpeedBonus(){ if(mode!=="quickfire"||!qfDuration) return 0; return Math.max(0,Math.round((1-elapsedSec()/qfDuration)*10)); }
+function onTimeout(){
+  if(state.answered) return;
+  state.answered=true;
+  const q=state.current;
+  if(isGapType(q)){ $("gapInput").disabled=true; $("checkBtn").disabled=true; }
+  else{
+    const box=$("optsBox");
+    [...box.children].forEach(c=>{ c.onclick=null; c.style.borderColor="";
+      const o=q.options[Number(c.dataset.idx)];
+      if(o&&o.correct){ c.classList.add("correct"); c.innerHTML=`<span class="tag">✓ best</span>`+escapeHTML(o.text); }
+      else c.classList.add("dim");
+    });
+  }
+  scoreResult(false,0);
+  const fb=$("feedback"); fb.className="feedback show bad";
+  const ideal=isGapType(q)?` <em>e.g. “${escapeHTML(q.answer||q.term||"")}”</em>`:"";
+  fb.innerHTML=`<span class="ic">Time's up —</span>Too slow this round. Quick instincts come with practice.`+ideal;
+  state.results.push({type:q.type,ok:false,scenario:q.scenario,timedOut:true});
+  toNextButton();
+}
+
+/* ---- render ---- */
+function renderRound(q){
+  state.current=q; state.answered=false;
+  const labels={gap:"Fill the gap",smalltalk:"Small talk",choose:"Best answer",
+                use:"Use it",fit:"Best fit",meaning:"Match meaning",corp:"Corporate Translator",corpgap:"Corporate gap"};
+  $("roundType").textContent=labels[q.type]||"Best answer";
+  $("fireBadge").classList.toggle("hidden", mode!=="quickfire");
+  $("whoLine").textContent=q.who||"";
+  $("feedback").className="feedback";
+  $("errBox").classList.add("hidden");
+  $("nextBtn").classList.add("hidden");
+  $("checkBtn").classList.remove("hidden");
+  $("checkBtn").disabled=true;
+  $("gapInput").disabled=false;
+  $("sayAloud").classList.toggle("hidden", !q.spoken);
+
+  if(isGapType(q)){
+    $("optsBox").classList.add("hidden");
+    $("gapBox").classList.remove("hidden");
+    let raw=escapeHTML(q.scenario||"");
+    let sentence=raw.replace(/_{2,}/, '<span class="blank">?</span>');
+    if(sentence===raw) sentence=raw+' <span class="blank">?</span>';
+    // always show a hint (meaning/tip) so the learner has context to answer from
+    const hintText = q.prompt || q.tip || "";
+    const hint = hintText ? `<p class="who" style="margin-top:8px;text-transform:none;letter-spacing:0;font-size:14px;color:var(--teal-deep);">💡 ${escapeHTML(hintText)}</p>` : "";
+    $("scenarioBox").innerHTML=`<p class="gaptext">${sentence}</p>${hint}`;
+    $("gapInput").value="";
+    $("gapInput").placeholder = (q.type==="use"||q.type==="corpgap") ? "Type the missing phrase…" : "Type one word or a short phrase…";
+    $("gapInput").oninput=()=>{ $("checkBtn").disabled=$("gapInput").value.trim().length===0; };
+    setTimeout(()=>$("gapInput").focus(),100);
+  }else{
+    $("gapBox").classList.add("hidden");
+    $("optsBox").classList.remove("hidden");
+    const sub = q.subtitle ? `<p class="who" style="margin-bottom:10px;">${escapeHTML(q.subtitle)}</p>` : "";
+    $("scenarioBox").innerHTML=`<p class="scenario">${escapeHTML(q.scenario)}</p>`+sub;
+    const box=$("optsBox"); box.innerHTML="";
+    q.options.forEach((o,i)=>{
+      const b=document.createElement("button");
+      b.className="opt"; b.textContent=o.text; b.dataset.idx=i;
+      b.onclick=()=>chooseOption(b,i,box);
+      box.appendChild(b);
+    });
+    $("checkBtn").disabled=true;
+  }
+  startTimer(q);
+}
+
+let pendingChoice=null;
+function chooseOption(btn,idx,box){
+  if(state.answered) return;
+  [...box.children].forEach(c=>{ c.classList.remove("sel"); c.style.borderColor=""; });
+  btn.style.borderColor="var(--teal)";
+  pendingChoice={btn,idx,box};
+  $("checkBtn").disabled=false;
+}
+
+function revealChoose(){
+  const speedBonus=computeSpeedBonus();
+  stopTimer();
+  state.answered=true;
+  const {idx,box}=pendingChoice;
+  const opts=state.current.options;
+  const chosen=opts[idx];
+  [...box.children].forEach(c=>{
+    c.onclick=null; c.style.borderColor="";
+    const o=opts[Number(c.dataset.idx)];
+    if(o&&o.correct){ c.classList.add("correct"); c.innerHTML=`<span class="tag">✓ best</span>`+escapeHTML(o.text); }
+    else if(c===pendingChoice.btn){ c.classList.add("wrong"); c.innerHTML=`<span class="tag">✗</span>`+escapeHTML(o.text); }
+    else c.classList.add("dim");
+  });
+  const ok=!!(chosen&&chosen.correct);
+  scoreResult(ok, ok?speedBonus:0);
+  const fb=$("feedback"); fb.className="feedback show "+(ok?"good":"bad");
+  const bonus=(ok&&mode==="quickfire"&&speedBonus>0)?` <em>+${speedBonus} speed</em>`:"";
+  fb.innerHTML=`<span class="ic">${ok?"Nice —":"Not quite —"}</span>${escapeHTML((chosen&&chosen.why)||"")}`+bonus;
+  state.results.push({type:state.current.type,ok,scenario:state.current.scenario});
+  toNextButton();
+}
+
+function revealGap(){
+  const speedBonus=computeSpeedBonus();
+  stopTimer();
+  state.answered=true;
+  const ans=$("gapInput").value.trim();
+  const q=state.current;
+  const result=gradeGapLocal(q,ans);
+  scoreResult(result.ok, result.ok?speedBonus:0);
+  const fb=$("feedback"); fb.className="feedback show "+(result.ok?"good":"bad");
+  const bonus=(result.ok&&mode==="quickfire"&&speedBonus>0)?` <em>+${speedBonus} speed</em>`:"";
+  fb.innerHTML=`<span class="ic">${result.ok?"Nice —":"Try this —"}</span>${escapeHTML(result.feedback)}`+ (result.ok?bonus:"");
+  // for corporate gap, show the full polite sentence as reinforcement
+  if(q._corp){ fb.innerHTML+=`<div style="margin-top:8px;font-weight:600;">Full version: ${escapeHTML(q._corp.polite)}</div>`; }
+  state.results.push({type:q.type,ok:result.ok,scenario:q.scenario});
+  toNextButton();
+}
+
+function scoreResult(ok, speedBonus=0){
+  if(ok){ state.correct++; state.streak++; state.bestStreak=Math.max(state.bestStreak,state.streak); state.score+=10+(state.streak>=3?5:0)+speedBonus; }
+  else state.streak=0;
+  updateStats();
+}
+function toNextButton(){
+  $("checkBtn").classList.add("hidden");
+  $("nextBtn").classList.remove("hidden");
+  $("nextBtn").textContent = state.round>=totalRounds() ? "See results →" : "Next →";
+}
+function nextRound(){
+  if(state.round>=totalRounds()) return finish();
+  const q=state.questions[state.round];
+  state.round++;
+  updateProgress();
+  show("gameCard");
+  $("checkBtn").classList.remove("hidden");
+  renderRound(q);
+}
+function finish(){
+  stopTimer();
+  $("timerWrap").classList.add("hidden");
+  $("progressWrap").style.display="none";
+  const ins=buildSummary();
+  $("sumCorrect").textContent=`${state.correct} / ${totalRounds()}`;
+  $("sumPoints").textContent=state.score;
+  $("sumStreak").textContent=state.bestStreak;
+  $("sumStrength").innerHTML=`<strong>💪 Strength:</strong> ${escapeHTML(ins.strength)}`;
+  $("sumWork").innerHTML=`<strong>🎯 Work on:</strong> ${escapeHTML(ins.work)}`;
+  show("summaryCard");
+}
+
+/* ---- browse: vocab ---- */
+function renderBrowse(filter=""){
+  const f=filter.trim().toLowerCase();
+  const list=$("browseList"); list.innerHTML="";
+  let total=0;
+  for(const group in VOCAB){
+    const items=VOCAB[group].filter(([t,m])=> !f || t.toLowerCase().includes(f) || m.toLowerCase().includes(f));
+    if(!items.length) continue;
+    const gt=document.createElement("div"); gt.className="vgroup-title"; gt.textContent=group; list.appendChild(gt);
+    items.forEach(([term,mean,ex])=>{ total++;
+      const d=document.createElement("div"); d.className="vitem";
+      d.innerHTML=`<div class="term">${escapeHTML(term)}</div><div class="mean">${escapeHTML(mean)}</div><div class="ex">"${escapeHTML(ex)}"</div>`;
+      list.appendChild(d);
+    });
+  }
+  if(!total) list.innerHTML=`<div class="vcount" style="padding:20px 0;text-align:center;">No matches.</div>`;
+}
+function openBrowse(){
+  $("vcount").textContent=`${vocabFlat().length} expressions to review — tap Vocabulary practice to test yourself.`;
+  $("browseSearch").value=""; renderBrowse(); show("browseCard");
+}
+
+/* ---- browse: corporate flashcards ---- */
+function renderCorpBrowse(filter=""){
+  const f=filter.trim().toLowerCase();
+  const list=$("corpBrowseList"); list.innerHTML="";
+  let total=0;
+  const groups=[
+    {cat:"professional", title:"Essential professional phrases", emoji:"💼", bluntEmoji:"🗣️"},
+    {cat:"humour", title:"Corporate speak (decoded)", emoji:"💼", bluntEmoji:"😬"}
+  ];
+  groups.forEach(g=>{
+    const items=CORP.filter(c=>(c.cat||"humour")===g.cat)
+      .filter(c=> !f || c.blunt.toLowerCase().includes(f) || c.polite.toLowerCase().includes(f));
+    if(!items.length) return;
+    const gt=document.createElement("div"); gt.className="vgroup-title"; gt.textContent=g.title; list.appendChild(gt);
+    items.forEach(c=>{
+      total++;
+      const d=document.createElement("div"); d.className="flip";
+      d.innerHTML=`<div class="blunt">${g.bluntEmoji} ${escapeHTML(c.blunt)}</div><div class="hint">tap to reveal professional version</div><div class="polite">${g.emoji} ${escapeHTML(c.polite)}</div>`;
+      d.onclick=()=>{ d.classList.toggle("open"); const h=d.querySelector('.hint'); if(h) h.style.display=d.classList.contains('open')?'none':'block'; };
+      list.appendChild(d);
+    });
+  });
+  if(!total) list.innerHTML=`<div class="vcount" style="padding:20px 0;text-align:center;">No matches.</div>`;
+}
+function openCorpBrowse(){ $("corpSearch").value=""; renderCorpBrowse(); show("corpBrowseCard"); }
+
+/* ---- home ---- */
+function goHome(){
+  stopTimer();
+  $("timerWrap").classList.add("hidden");
+  $("startErr").classList.add("hidden");
+  state.score=0; state.streak=0; updateStats();
+  $("progressWrap").style.display="none";
+  show("startCard");
+}
+
+/* ======== EVENTS ======== */
+$("startBtn").onclick=startSession;
+$("vocabBtn").onclick=startVocab;
+$("fireBtn").onclick=startQuickFire;
+$("corpBtn").onclick=startCorp;
+$("againBtn").onclick=()=>{ mode==="vocab"?startVocab():mode==="quickfire"?startQuickFire():mode==="corp"?startCorp():startSession(); };
+$("homeBtn").onclick=goHome;
+$("browseBtn").onclick=openBrowse;
+$("browseHome").onclick=goHome;
+$("browseCorpBtn").onclick=openCorpBrowse;
+$("corpBrowseHome").onclick=goHome;
+$("checkBtn").onclick=()=>{ if(state.answered) return; isGapType(state.current)?revealGap():revealChoose(); };
+$("nextBtn").onclick=nextRound;
+$("gapInput").addEventListener("keydown",e=>{ if(e.key==="Enter" && !$("checkBtn").disabled && !state.answered) $("checkBtn").click(); });
+$("browseSearch").addEventListener("input",e=>renderBrowse(e.target.value));
+$("corpSearch").addEventListener("input",e=>renderCorpBrowse(e.target.value));
+
+</script>
+
+</body>
+</html>
