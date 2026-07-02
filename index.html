@@ -407,7 +407,7 @@ const CORP = [
 
   {blunt:"The project is dead, but the PowerPoint is in.", polite:"We're keeping stakeholders informed.", key:"stakeholders informed", cat:"humour"},
 
-  {blunt:"Nobody understands the strategy.", polite:"We're still building alignment around the vision.", key:"alignment", cat:"humour"},
+  {blunt:"Nobody understands the strategy.", polite:"We're still building alignment around the vision.", key:"alignment", alt:["consensus"], cat:"humour"},
 
   {blunt:"This project has owners from 12 teams.", polite:"This initiative relies on 12 cross-functional partnerships.", key:"cross-functional partnerships", cat:"humour"},
 
@@ -435,13 +435,13 @@ const CORP = [
 
   {blunt:"We spent two weeks making PowerPoint slides.", polite:"We've invested significant effort in preparing the narrative.", key:"narrative", cat:"humour"},
 
-  {blunt:"I have absolutely no idea what's going on.", polite:"Let's circle back next week after gathering more feedback.", key:"circle back", cat:"humour"},
+  {blunt:"I have absolutely no idea what's going on.", polite:"Let's circle back next week after gathering more feedback.", key:"circle back", alt:["loop back","come back"], cat:"humour"},
 
-  {blunt:"Too many people disagree.", polite:"We need a bit more alignment before moving forward.", key:"alignment", cat:"humour"},
+  {blunt:"Too many people disagree.", polite:"We need a bit more alignment before moving forward.", key:"alignment", alt:["consensus"], cat:"humour"},
 
   {blunt:"This is bad news.", polite:"Just a quick heads up.", key:"heads up", cat:"humour"},
 
-  {blunt:"I want to micromanage this project.", polite:"Could you keep me posted on the progress?", key:"keep me posted", cat:"humour"},
+  {blunt:"I want to micromanage this project.", polite:"Could you keep me posted on the progress?", key:"keep me posted", alt:["keep me updated","keep me informed","keep me in the loop"], cat:"humour"},
 
   {blunt:"I don't know what I want yet.", polite:"Let's continue exploring different directions.", key:"exploring different directions", cat:"humour"},
 
@@ -459,7 +459,7 @@ const CORP = [
 
   {blunt:"Nobody tested this.", polite:"On paper, this should work.", key:"On paper", cat:"humour"},
 
-  {blunt:"I didn't read the document.", polite:"Could you walk me through this again?", key:"walk me through", cat:"humour"},
+  {blunt:"I didn't read the document.", polite:"Could you walk me through this again?", key:"walk me through", alt:["talk me through","take me through"], cat:"humour"},
 
   {blunt:"Your weekend is gone.", polite:"This shouldn't take too long.", key:"shouldn't take too long", cat:"humour"},
 
@@ -474,33 +474,33 @@ const CORP = [
   {blunt:"Can you help me?", polite:"When you have a moment, I'd appreciate your input on this.", key:"appreciate your input", cat:"professional"},
   {blunt:"I'll send it later.", polite:"I'll follow up with the details shortly.", key:"follow up", cat:"professional"},
   {blunt:"Let's decide now.", polite:"Shall we align on next steps before we close?", key:"align on next steps", cat:"professional"},
-  {blunt:"I don't understand.", polite:"Could you clarify what you mean by that?", key:"clarify", cat:"professional"},
-  {blunt:"Please explain more.", polite:"Could you elaborate on that point?", key:"elaborate", cat:"professional"},
+  {blunt:"I don't understand.", polite:"Could you clarify what you mean by that?", key:"clarify", alt:["explain"], cat:"professional"},
+  {blunt:"Please explain more.", polite:"Could you elaborate on that point?", key:"elaborate", alt:["expand"], cat:"professional"},
   {blunt:"That's a good idea.", polite:"That's a valuable suggestion — thank you for raising it.", key:"valuable suggestion", cat:"professional"},
   {blunt:"I'm sorry for the mistake.", polite:"Apologies for the oversight — I'll correct it right away.", key:"oversight", cat:"professional"},
   {blunt:"Thanks for your help.", polite:"I really appreciate your support on this.", key:"appreciate your support", cat:"professional"},
-  {blunt:"I can't make the meeting.", polite:"Unfortunately I have a clash — could we reschedule?", key:"reschedule", cat:"professional"},
+  {blunt:"I can't make the meeting.", polite:"Unfortunately I have a clash — could we reschedule?", key:"reschedule", alt:["rearrange"], cat:"professional"},
   {blunt:"Let's meet to talk about it.", polite:"Shall we set up a time to discuss this further?", key:"set up a time", cat:"professional"},
   {blunt:"I'll check and get back to you.", polite:"Let me look into it and revert to you shortly.", key:"look into it", cat:"professional"},
   {blunt:"This is urgent.", polite:"This is time-sensitive, so your prompt attention would be appreciated.", key:"time-sensitive", cat:"professional"},
   {blunt:"Good work, everyone.", polite:"Thank you all for your hard work on this.", key:"hard work", cat:"professional"},
-  {blunt:"Can we start?", polite:"Shall we get started?", key:"get started", cat:"professional"},
-  {blunt:"Let's finish here.", polite:"Let's wrap up and pick this up next time.", key:"wrap up", cat:"professional"},
+  {blunt:"Can we start?", polite:"Shall we get started?", key:"get started", alt:["begin","make a start"], cat:"professional"},
+  {blunt:"Let's finish here.", polite:"Let's wrap up and pick this up next time.", key:"wrap up", alt:["finish up","round off"], cat:"professional"},
   {blunt:"I'll take notes.", polite:"I'll capture the action items and share them afterwards.", key:"action items", cat:"professional"},
   {blunt:"Who is doing what?", polite:"Could we confirm ownership of each task?", key:"confirm ownership", cat:"professional"},
-  {blunt:"Send me an update.", polite:"Could you keep me updated on how it progresses?", key:"keep me updated", cat:"professional"},
+  {blunt:"Send me an update.", polite:"Could you keep me updated on how it progresses?", key:"keep me updated", alt:["keep me posted","keep me informed","keep me in the loop"], cat:"professional"},
   {blunt:"I need more information.", polite:"Could you provide a bit more detail on this?", key:"more detail", cat:"professional"},
   {blunt:"Let's talk soon.", polite:"Let's touch base early next week.", key:"touch base", cat:"professional"},
   {blunt:"I'll be away.", polite:"I'll be on leave next week and will respond on my return.", key:"on leave", cat:"professional"},
   {blunt:"Please review this.", polite:"I'd welcome your feedback on the attached.", key:"welcome your feedback", cat:"professional"},
-  {blunt:"This works for me.", polite:"That works on my end — happy to go ahead.", key:"go ahead", cat:"professional"},
+  {blunt:"This works for me.", polite:"That works on my end — happy to go ahead.", key:"go ahead", alt:["proceed"], cat:"professional"},
   {blunt:"Let me know if that's okay.", polite:"Please let me know if that suits you.", key:"suits you", cat:"professional"},
   {blunt:"I'll help where I can.", polite:"I'm glad to assist wherever needed.", key:"glad to assist", cat:"professional"},
   {blunt:"We should plan ahead.", polite:"It would be worth mapping out the next steps in advance.", key:"next steps", cat:"professional"},
   {blunt:"Nice to meet you.", polite:"It's a pleasure to connect with you.", key:"pleasure to connect", cat:"professional"},
   {blunt:"I'll introduce you two.", polite:"I'd be glad to make an introduction.", key:"make an introduction", cat:"professional"},
   {blunt:"Let's keep this short.", polite:"In the interest of time, let's keep this brief.", key:"interest of time", cat:"professional"},
-  {blunt:"Can you confirm?", polite:"Could you please confirm that this is correct?", key:"confirm", cat:"professional"},
+  {blunt:"Can you confirm?", polite:"Could you please confirm that this is correct?", key:"confirm", alt:["verify"], cat:"professional"},
   {blunt:"I'll prioritise this.", polite:"I'll make this a priority and update you soon.", key:"make this a priority", cat:"professional"}
 ];
 
@@ -563,13 +563,13 @@ const PRACTICE = [
    ], spoken:false},
 
   {type:"gap", who:"To a colleague", scenario:"I'll ___ base with you tomorrow about the reports.", answer:"touch", tip:"A phrase meaning to briefly check in.", spoken:false},
-  {type:"gap", who:"To your manager", scenario:"Could you keep me ___ on how the project is going?", answer:"posted", tip:"Ask to be kept updated.", spoken:false},
-  {type:"gap", who:"To a colleague", scenario:"Let's ___ this discussion offline and sort it out later.", answer:"take", tip:"Move a conversation to a private setting.", spoken:false},
+  {type:"gap", who:"To your manager", scenario:"Could you keep me ___ on how the project is going?", answer:"posted", alt:["updated","informed","in the loop"], tip:"Ask to be kept updated.", spoken:false},
+  {type:"gap", who:"To a colleague", scenario:"Let's ___ this discussion offline and sort it out later.", answer:"take", alt:["move","continue"], tip:"Move a conversation to a private setting.", spoken:false},
   {type:"gap", who:"To your team", scenario:"Just a quick ___ up — the room has changed for tomorrow.", answer:"heads", tip:"A short advance warning.", spoken:false},
   {type:"gap", who:"To a colleague", scenario:"I'm flat ___ this week, so I'll get back to you Friday.", answer:"out", tip:"An expression meaning extremely busy.", spoken:false},
-  {type:"gap", who:"To your coordinator", scenario:"I'd like to ___ a concern about the timetable.", answer:"flag", tip:"To highlight something for attention.", spoken:false},
-  {type:"gap", who:"To a colleague", scenario:"Can we ___ back on this next week?", answer:"circle", tip:"To return to a topic later.", spoken:false},
-  {type:"gap", who:"To your manager", scenario:"I'll ___ that request today and let you know.", answer:"action", tip:"To deal with a task (used as a verb).", spoken:false},
+  {type:"gap", who:"To your coordinator", scenario:"I'd like to ___ a concern about the timetable.", answer:"flag", alt:["raise"], tip:"To highlight something for attention.", spoken:false},
+  {type:"gap", who:"To a colleague", scenario:"Can we ___ back on this next week?", answer:"circle", alt:["loop","come"], tip:"To return to a topic later.", spoken:false},
+  {type:"gap", who:"To your manager", scenario:"I'll ___ that request today and let you know.", answer:"action", alt:["process","handle","deal with"], tip:"To deal with a task (used as a verb).", spoken:false},
 
   {type:"smalltalk", who:"Staffroom", scenario:"A colleague says: \"How's it going?\"",
    options:[
@@ -599,8 +599,8 @@ const PRACTICE = [
      {text:"Good one what?", correct:false, why:"Misreads a common friendly phrase."}
    ], spoken:true},
 
-  {type:"gap", who:"Staffroom", scenario:"Thanks for that — ___ a legend.", answer:"you're", tip:"A casual way to praise someone (you're...).", spoken:true},
-  {type:"gap", who:"Kitchen", scenario:"Someone asks how you are. You say: \"Can't ___.\"", answer:"complain", tip:"A relaxed 'things are okay' reply.", spoken:true}
+  {type:"gap", who:"Staffroom", scenario:"Thanks for that — ___ a legend.", answer:"you're", alt:["what"], tip:"A casual way to praise someone (you're... / what...).", spoken:true},
+  {type:"gap", who:"Kitchen", scenario:"Someone asks how you are. You say: \"Can't ___.\"", answer:"complain", alt:["grumble"], tip:"A relaxed 'things are okay' reply.", spoken:true}
 ];
 
 const VOCAB = {
@@ -832,7 +832,7 @@ function makeCorpGap(c){
   const isProf=(c.cat||"humour")==="professional";
   const lead=isProf?`What you mean: "`:`Blunt truth: "`;
   const scenario = `${lead}${c.blunt}"  →  ${c.polite.replace(re,'___')}`;
-  return {type:"corpgap", who:"Corporate Translator", scenario, answer:c.key,
+  return {type:"corpgap", who:"Corporate Translator", scenario, answer:c.key, alt:c.alt||[],
     tip:isProf?`Fill the missing professional phrase.`:`Fill the missing corporate phrase.`, spoken:false, _corp:c};
 }
 function buildCorpSession(){
@@ -843,13 +843,17 @@ function buildCorpSession(){
 /* ======== LOCAL GRADING ======== */
 function gradeGapLocal(q, userAns){
   const u = norm(userAns);
-  const target = norm(q.answer||q.term||"");
+  const taught = q.answer||q.term||"";
+  const target = norm(taught);
   if(!u) return {ok:false, feedback:"Type an answer to check."};
   // accept exact, contains, or contained-in for short phrases
-  const ok = u===target || u.includes(target) || target.includes(u) && u.length>=3;
-  if(ok) return {ok:true, feedback:`Spot on — "${q.answer||q.term}" fits here.`};
+  const fits = t => !!t && (u===t || u.includes(t) || (t.includes(u) && u.length>=3));
+  if(fits(target)) return {ok:true, feedback:`Spot on — "${taught}" fits here.`};
+  // accept a valid alternative, but still point back to the phrase we teach
+  const hit = (q.alt||[]).find(a => fits(norm(a)));
+  if(hit) return {ok:true, feedback:`That works too — "${hit}" fits nicely here. Another natural way to say it is "${taught}".`};
   // near miss: first word matches
-  return {ok:false, feedback:`Not quite — the phrase we're after is "${q.answer||q.term}".`};
+  return {ok:false, feedback:`Not quite — the phrase we're after is "${taught}".`};
 }
 
 /* ======== SUMMARY (offline, rule-based) ======== */
