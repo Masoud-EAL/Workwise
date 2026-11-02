@@ -501,7 +501,67 @@ const CORP = [
   {blunt:"I'll introduce you two.", polite:"I'd be glad to make an introduction.", key:"make an introduction", cat:"professional"},
   {blunt:"Let's keep this short.", polite:"In the interest of time, let's keep this brief.", key:"interest of time", cat:"professional"},
   {blunt:"Can you confirm?", polite:"Could you please confirm that this is correct?", key:"confirm", alt:["verify"], cat:"professional"},
-  {blunt:"I'll prioritise this.", polite:"I'll make this a priority and update you soon.", key:"make this a priority", cat:"professional"}
+  {blunt:"I'll prioritise this.", polite:"I'll make this a priority and update you soon.", key:"make this a priority", cat:"professional"},
+  {blunt:"The meeting could have been an email.", polite:"Perhaps we could streamline how we share updates.", key:"streamline", cat:"humour"},
+  {blunt:"Nobody knows who is in charge.", polite:"We're clarifying roles and responsibilities across the group.", key:"roles and responsibilities", cat:"humour"},
+  {blunt:"The deadline was impossible from the start.", polite:"The timeline presents some stretch opportunities.", key:"stretch opportunities", cat:"humour"},
+  {blunt:"We cut the budget again.", polite:"We're optimising our resource allocation.", key:"resource allocation", alt:["optimising"], cat:"humour"},
+  {blunt:"We have no idea what the customers want.", polite:"We're deepening our understanding of customer needs.", key:"customer needs", cat:"humour"},
+  {blunt:"Half the team quit last month.", polite:"We're navigating some organisational change.", key:"organisational change", cat:"humour"},
+  {blunt:"The software crashed again.", polite:"We're experiencing some technical challenges.", key:"technical challenges", cat:"humour"},
+  {blunt:"Nobody did the pre-reading.", polite:"We'll take a moment to bring everyone up to speed.", key:"up to speed", cat:"humour"},
+  {blunt:"This plan is a mess.", polite:"There's room to refine the approach.", key:"refine the approach", cat:"humour"},
+  {blunt:"I'm not doing your job for you.", polite:"That sits outside the scope of my current role.", key:"scope of my current role", alt:["scope"], cat:"humour"},
+  {blunt:"The new system is slower than the old one.", polite:"We're still in the early stages of optimising the new platform.", key:"early stages", cat:"humour"},
+  {blunt:"Stop emailing me at night.", polite:"I'll respond to messages during my regular working hours.", key:"regular working hours", alt:["working hours"], cat:"humour"},
+  {blunt:"We wasted a month on that.", polite:"It was a valuable learning experience.", key:"learning experience", cat:"humour"},
+  {blunt:"The boss changed their mind again.", polite:"Priorities have shifted slightly.", key:"priorities have shifted", alt:["shifted"], cat:"humour"},
+  {blunt:"This is somebody else's problem.", polite:"I'll loop in the relevant team to take this forward.", key:"relevant team", cat:"humour"},
+  {blunt:"I have no idea, I'll Google it.", polite:"I'll do some research and come back to you.", key:"do some research", alt:["research"], cat:"humour"},
+  {blunt:"Everyone talks and nothing happens.", polite:"We'd benefit from clearer action items.", key:"action items", cat:"humour"},
+  {blunt:"The numbers are terrible.", polite:"The results indicate some areas for improvement.", key:"areas for improvement", alt:["improvement"], cat:"humour"},
+  {blunt:"That was a stupid question.", polite:"That's an interesting point, let's unpack it.", key:"unpack", cat:"humour"},
+  {blunt:"It's not my fault.", polite:"I'd like to share some context on what happened.", key:"share some context", alt:["context"], cat:"humour"},
+  {blunt:"We still haven't started.", polite:"We're finalising our preparations.", key:"finalising", alt:["preparations"], cat:"humour"},
+  {blunt:"We haven't finished, but I can't say that.", polite:"We're making good progress and on track for delivery.", key:"good progress", cat:"humour"},
+  {blunt:"Please stop changing the plan.", polite:"Could we lock in the current approach before making further changes?", key:"lock in", alt:["finalise"], cat:"humour"},
+  {blunt:"That's a ridiculous request.", polite:"I'm not sure that's feasible within the current constraints.", key:"feasible", alt:["realistic"], cat:"humour"},
+  {blunt:"I don't want to go to that meeting.", polite:"I may not be able to attend, but I'd welcome the notes.", key:"welcome the notes", alt:["notes"], cat:"humour"},
+  {blunt:"You're wrong.", polite:"I see it a little differently.", key:"a little differently", alt:["differently"], cat:"humour"},
+  {blunt:"Nobody asked for this report.", polite:"This may be useful background for future planning.", key:"useful background", alt:["background"], cat:"humour"},
+  {blunt:"I've got no time for this.", polite:"I'm at capacity at the moment, but I can look at it next week.", key:"at capacity", cat:"humour"},
+  {blunt:"Who made this mess?", polite:"Let's review what led to this outcome.", key:"review what led", alt:["review"], cat:"humour"},
+  {blunt:"Thanks for your help.", polite:"I really appreciate your support on this.", key:"appreciate your support", alt:["appreciate"], cat:"professional"},
+  {blunt:"I made a mistake.", polite:"I apologise for the oversight and have corrected it.", key:"apologise for the oversight", alt:["oversight"], cat:"professional"},
+  {blunt:"I disagree.", polite:"I see it slightly differently. Could we discuss it?", key:"see it slightly differently", alt:["differently"], cat:"professional"},
+  {blunt:"I don't know.", polite:"I'll find out and get back to you.", key:"get back to you", alt:["find out"], cat:"professional"},
+  {blunt:"I need more time.", polite:"Would it be possible to extend the deadline by a day?", key:"extend the deadline", alt:["extension"], cat:"professional"},
+  {blunt:"Tell me what happened.", polite:"Could you walk me through what happened?", key:"walk me through", alt:["take me through"], cat:"professional"},
+  {blunt:"I'm too busy.", polite:"I'm at capacity at the moment. Could we revisit this next week?", key:"at capacity", alt:["revisit"], cat:"professional"},
+  {blunt:"Who's doing what?", polite:"Could we confirm who is responsible for each task?", key:"responsible for each task", alt:["responsible"], cat:"professional"},
+  {blunt:"Wait, say that again.", polite:"Sorry, could you repeat that so I make sure I've understood?", key:"make sure I've understood", alt:["repeat"], cat:"professional"},
+  {blunt:"Don't forget the meeting.", polite:"Just a reminder about tomorrow's meeting.", key:"just a reminder", alt:["reminder"], cat:"professional"},
+  {blunt:"I can't come to the meeting.", polite:"Unfortunately I won't be able to attend. Could you share the notes?", key:"won't be able to attend", alt:["unable to attend"], cat:"professional"},
+  {blunt:"What do you think?", polite:"I'd value your thoughts on this.", key:"value your thoughts", alt:["input"], cat:"professional"},
+  {blunt:"Let's talk later.", polite:"Can we find a time to discuss this further?", key:"discuss this further", alt:["find a time"], cat:"professional"},
+  {blunt:"That's wrong.", polite:"I think there may be a small error here.", key:"small error", alt:["error"], cat:"professional"},
+  {blunt:"I'm leaving soon.", polite:"I'll be heading off shortly, so please send anything urgent now.", key:"heading off", cat:"professional"},
+  {blunt:"Why wasn't I told?", polite:"Could I be included in these updates going forward?", key:"going forward", alt:["included"], cat:"professional"},
+  {blunt:"I'll do it today.", polite:"I'll have it with you by the end of today.", key:"end of today", alt:["by the end of today"], cat:"professional"},
+  {blunt:"I have a question.", polite:"If I could just clarify one point.", key:"clarify one point", alt:["clarify"], cat:"professional"},
+  {blunt:"Sorry I'm late.", polite:"Apologies for the delay, thanks for your patience.", key:"thanks for your patience", alt:["patience"], cat:"professional"},
+  {blunt:"I don't understand the instructions.", polite:"Could you clarify what's expected for this task?", key:"clarify what's expected", alt:["clarify"], cat:"professional"},
+  {blunt:"Send me the file.", polite:"Could you please send through the file when you have a moment?", key:"when you have a moment", alt:["send through"], cat:"professional"},
+  {blunt:"Do it again.", polite:"Could you please revisit this section?", key:"revisit", alt:["review"], cat:"professional"},
+  {blunt:"I'm not available then.", polite:"That time doesn't work for me. Would Thursday suit?", key:"doesn't work for me", alt:["suit"], cat:"professional"},
+  {blunt:"Good job.", polite:"Great work on this. It's really well done.", key:"great work", alt:["well done"], cat:"professional"},
+  {blunt:"I'm worried about this.", polite:"I have a concern I'd like to raise.", key:"raise", alt:["flag"], cat:"professional"},
+  {blunt:"Please reply faster.", polite:"I'd appreciate a response when you get a chance.", key:"when you get a chance", alt:["response"], cat:"professional"},
+  {blunt:"I need help.", polite:"Would you have a few minutes to help me with something?", key:"few minutes", alt:["help me"], cat:"professional"},
+  {blunt:"We agree.", polite:"It sounds like we're aligned.", key:"aligned", alt:["on the same page"], cat:"professional"},
+  {blunt:"I'll be away next week.", polite:"I'll be on leave next week, so please contact Sam for anything urgent.", key:"on leave", alt:["away"], cat:"professional"},
+  {blunt:"I'm done.", polite:"I've completed the task and it's ready for your review.", key:"ready for your review", alt:["completed"], cat:"professional"},
+  {blunt:"Can I go early?", polite:"Would it be okay if I finished a little early today?", key:"finished a little early", alt:["leave early"], cat:"professional"}
 ];
 
 // Offline mixed-practice question bank. Types: choose (tap best reply), gap (type missing word).
@@ -562,6 +622,63 @@ const PRACTICE = [
      {text:"Sorry, sorry, it's probably nothing, never mind...", correct:false, why:"Over-apologetic; undersells a real need."}
    ], spoken:false},
 
+  {type:"choose", who:"To your manager", scenario:"Your manager asks you to attend a Saturday professional development session.",
+   options:[
+     {text:"Thanks for letting me know. Could I check the start time and whether there's time off in lieu?", correct:true, why:"Interested and practical; asks a fair question politely."},
+     {text:"Saturdays are my days off.", correct:false, why:"Flat refusal with no discussion."},
+     {text:"Sure, whatever you say.", correct:false, why:"Passive; hides your real concerns."}
+   ], spoken:false},
+
+  {type:"choose", who:"To a colleague", scenario:"A colleague asks if you can proofread their email before it goes out.",
+   options:[
+     {text:"Happy to. Send it through and I'll have a look this afternoon.", correct:true, why:"Helpful, with a clear timeframe."},
+     {text:"I'm not your editor.", correct:false, why:"Rude and unhelpful."},
+     {text:"Yeah, maybe, I'll see.", correct:false, why:"Vague; leaves them unsure."}
+   ], spoken:false},
+
+  {type:"choose", who:"To your coordinator", scenario:"You're sick and cannot come to work tomorrow.",
+   options:[
+     {text:"Hi, I'm unwell and won't be able to make it tomorrow. I'll send through my lesson plan so the class is covered.", correct:true, why:"Clear, early notice with a plan to reduce disruption."},
+     {text:"I'm sick. Bye.", correct:false, why:"Too abrupt; no help for the team."},
+     {text:"I might come in, I might not, we'll see in the morning.", correct:false, why:"Vague; makes it hard to plan cover."}
+   ], spoken:false},
+
+  {type:"choose", who:"To a student", scenario:"A student asks you to explain the same task for the third time.",
+   options:[
+     {text:"No problem. Let's try it a different way. Show me what you've done so far.", correct:true, why:"Patient and supportive; changes approach."},
+     {text:"I've already told you twice.", correct:false, why:"Impatient; discourages questions."},
+     {text:"Ask someone else.", correct:false, why:"Dismissive; avoids helping."}
+   ], spoken:false},
+
+  {type:"choose", who:"To your manager", scenario:"You've made a mistake in a report that has already been sent.",
+   options:[
+     {text:"I've noticed an error in the report I sent. Here is the correction, and I've checked the rest.", correct:true, why:"Honest, quick and solution-focused."},
+     {text:"Nobody will notice.", correct:false, why:"Hides the problem; risky."},
+     {text:"It's not really my fault.", correct:false, why:"Defensive; avoids ownership."}
+   ], spoken:false},
+
+  {type:"choose", who:"To a colleague", scenario:"A new colleague looks lost on their first day.",
+   options:[
+     {text:"Hi, I'm Sam. Can I show you where the kitchen and the printer are?", correct:true, why:"Welcoming and offers specific help."},
+     {text:"You'll work it out.", correct:false, why:"Cold; offers no support."},
+     {text:"Are you the new one? Good luck.", correct:false, why:"Not helpful; sounds careless."}
+   ], spoken:false},
+
+  {type:"choose", who:"To your coordinator", scenario:"You'd like to ask for a day of leave next month.",
+   options:[
+     {text:"I was hoping to take a day of leave on the 14th. Would that be okay, and can I arrange cover?", correct:true, why:"Polite, specific and offers a solution."},
+     {text:"I'm taking the 14th off.", correct:false, why:"Presumes approval; not a request."},
+     {text:"Can I have some days off sometime?", correct:false, why:"Vague; gives nothing to approve."}
+   ], spoken:false},
+
+  {type:"choose", who:"To your team", scenario:"You're running a meeting and it is going over time.",
+   options:[
+     {text:"In the interest of time, let's park the last item and pick it up next week.", correct:true, why:"Keeps control politely and offers a next step."},
+     {text:"We're out of time, everyone go.", correct:false, why:"Abrupt; ignores the agenda."},
+     {text:"Let's keep talking until we finish, no matter how long.", correct:false, why:"Disrespects people's time."}
+   ], spoken:false},
+
+
   {type:"gap", who:"To a colleague", scenario:"I'll ___ base with you tomorrow about the reports.", answer:"touch", tip:"A phrase meaning to briefly check in.", spoken:false},
   {type:"gap", who:"To your manager", scenario:"Could you keep me ___ on how the project is going?", answer:"posted", alt:["updated","informed","in the loop"], tip:"Ask to be kept updated.", spoken:false},
   {type:"gap", who:"To a colleague", scenario:"Let's ___ this discussion offline and sort it out later.", answer:"take", alt:["move","continue"], tip:"Move a conversation to a private setting.", spoken:false},
@@ -599,8 +716,91 @@ const PRACTICE = [
      {text:"Good one what?", correct:false, why:"Misreads a common friendly phrase."}
    ], spoken:true},
 
+  {type:"smalltalk", who:"Staffroom", scenario:"A colleague asks: \"Did you get up to anything on the weekend?\"",
+   options:[
+     {text:"Not much, just a bit of gardening and a walk. How about you?", correct:true, why:"Short, friendly answer that returns the question."},
+     {text:"Yes.", correct:false, why:"Too short; ends the chat."},
+     {text:"That's private.", correct:false, why:"Cold; unnecessary for casual chat."}
+   ], spoken:true},
+
+  {type:"smalltalk", who:"Kitchen", scenario:"A colleague says: \"Cuppa?\" while the kettle is on.",
+   options:[
+     {text:"Yes please, that'd be great. Milk, no sugar.", correct:true, why:"Accepts warmly with clear details."},
+     {text:"A cuppa what?", correct:false, why:"Misses a very common word for a cup of tea."},
+     {text:"No. I do not drink.", correct:false, why:"Stiff and unnatural."}
+   ], spoken:true},
+
+  {type:"smalltalk", who:"Corridor", scenario:"You pass a colleague and they say: \"Morning! Busy day ahead?\"",
+   options:[
+     {text:"Morning! Yeah, a few meetings, but should be okay. You?", correct:true, why:"Friendly and keeps the exchange going."},
+     {text:"I will tell you later.", correct:false, why:"Odd; breaks the casual rhythm."},
+     {text:"Why do you want to know?", correct:false, why:"Suspicious for a friendly question."}
+   ], spoken:true},
+
+  {type:"smalltalk", who:"Staffroom", scenario:"It's Friday afternoon and a colleague says: \"Nearly the weekend!\"",
+   options:[
+     {text:"Finally! Got anything planned?", correct:true, why:"Agrees and invites a follow-up."},
+     {text:"Weekends are not important.", correct:false, why:"Awkward; kills the mood."},
+     {text:"I work on weekends too.", correct:false, why:"Misses the friendly intention."}
+   ], spoken:true},
+
+  {type:"smalltalk", who:"Lift", scenario:"A colleague says: \"Hot enough for you?\"",
+   options:[
+     {text:"Ha, it's a scorcher. I'm glad for the air con.", correct:true, why:"Light, natural reply about the weather."},
+     {text:"The forecast says 38 degrees.", correct:false, why:"Factual but not social."},
+     {text:"I did not choose the weather.", correct:false, why:"Takes a joke too literally."}
+   ], spoken:true},
+
+  {type:"smalltalk", who:"Meeting room", scenario:"Before a meeting a colleague says: \"Thanks for coming in early.\"",
+   options:[
+     {text:"No worries, happy to help get set up.", correct:true, why:"Warm, natural and modest."},
+     {text:"It is my job.", correct:false, why:"Cold and defensive."},
+     {text:"You should say thank you more.", correct:false, why:"Rude; turns a kind moment negative."}
+   ], spoken:true},
+
+  {type:"smalltalk", who:"Staffroom", scenario:"A colleague returns from holidays. You say hello and they say: \"Great to be back, I think.\"",
+   options:[
+     {text:"Ha, I bet. Did you get away anywhere nice?", correct:true, why:"Shares the joke and asks about their trip."},
+     {text:"You should not be back.", correct:false, why:"Misunderstands the humour."},
+     {text:"Welcome. Now do my work.", correct:false, why:"Inappropriate; sounds rude."}
+   ], spoken:true},
+
+  {type:"smalltalk", who:"Car park", scenario:"A colleague offers: \"Need a hand with those boxes?\"",
+   options:[
+     {text:"That'd be great, thanks. They're heavier than they look.", correct:true, why:"Accepts help graciously."},
+     {text:"No. I am an adult.", correct:false, why:"Unfriendly and defensive."},
+     {text:"Only if you want to.", correct:false, why:"Sounds unenthusiastic."}
+   ], spoken:true},
+
+
   {type:"gap", who:"Staffroom", scenario:"Thanks for that — ___ a legend.", answer:"you're", alt:["what"], tip:"A casual way to praise someone (you're... / what...).", spoken:true},
-  {type:"gap", who:"Kitchen", scenario:"Someone asks how you are. You say: \"Can't ___.\"", answer:"complain", alt:["grumble"], tip:"A relaxed 'things are okay' reply.", spoken:true}
+  {type:"gap", who:"Kitchen", scenario:"Someone asks how you are. You say: \"Can't ___.\"", answer:"complain", alt:["grumble"], tip:"A relaxed 'things are okay' reply.", spoken:true},
+  {type:"gap", who:"To a colleague", scenario:"Can you ___ in for me next Tuesday?", answer:"fill", alt:["step", "cover"], tip:"To replace someone temporarily.", spoken:false},
+  {type:"gap", who:"To your coordinator", scenario:"I'll ___ into that issue and let you know what I find.", answer:"look", alt:["dig"], tip:"To investigate something.", spoken:false},
+  {type:"gap", who:"To your manager", scenario:"Please ___ in your assessment by Friday.", answer:"hand", alt:["send", "turn"], tip:"To submit work.", spoken:false},
+  {type:"gap", who:"To a colleague", scenario:"Let's make sure we're on the same ___ before the meeting.", answer:"page", tip:"To have the same understanding.", spoken:false},
+  {type:"gap", who:"To your team", scenario:"I'll ___ the room up before class starts.", answer:"set", tip:"To organise or prepare.", spoken:false},
+  {type:"gap", who:"To your manager", scenario:"I'm happy to ___ on an extra class this term.", answer:"take", tip:"To accept responsibility.", spoken:false},
+  {type:"gap", who:"To a colleague", scenario:"We might need to ___ the deadline back by a week.", answer:"push", alt:["move"], tip:"To delay something.", spoken:false},
+  {type:"gap", who:"To your team", scenario:"Let's ___ up for today and finish the rest tomorrow.", answer:"wrap", tip:"To finish.", spoken:false},
+  {type:"gap", who:"To a colleague", scenario:"Could you ___ me in the loop on the new timetable?", answer:"keep", tip:"To keep someone informed.", spoken:false},
+  {type:"gap", who:"To your coordinator", scenario:"We may need to ___ this issue to the manager.", answer:"escalate", alt:["refer", "raise"], tip:"To refer something to someone higher up.", spoken:false},
+  {type:"gap", who:"To your manager", scenario:"I'd like to ___ up in this term's assessment training.", answer:"upskill", alt:["skill"], tip:"To learn new skills.", spoken:false},
+  {type:"gap", who:"Staffroom", scenario:"Sorry, I can't talk now. I'm ___ out at the moment.", answer:"flat", tip:"Extremely busy.", spoken:false},
+  {type:"gap", who:"To a colleague", scenario:"I'll ___ you an email with the details later.", answer:"flick", alt:["send", "shoot", "drop"], tip:"A casual way to say send.", spoken:false},
+  {type:"gap", who:"To a colleague", scenario:"Staff ___ in at 8:30 every morning.", answer:"clock", alt:["sign"], tip:"To officially start work.", spoken:false},
+  {type:"gap", who:"To your coordinator", scenario:"Is my workload still on ___ with everyone else's?", answer:"par", tip:"At an equal level.", spoken:false},
+  {type:"gap", who:"To your manager", scenario:"Thanks for the heads ___ about the schedule change.", answer:"up", tip:"An advance warning.", spoken:false},
+  {type:"gap", who:"To your team", scenario:"Everyone can ___ in to help during enrolment week.", answer:"chip", alt:["pitch"], tip:"To contribute or help.", spoken:false},
+  {type:"gap", who:"To a colleague", scenario:"Let's ___ off until we hear back from the manager.", answer:"hold", tip:"To wait.", spoken:false},
+  {type:"gap", who:"To your manager", scenario:"I'm happy to ___ over this class while she is away.", answer:"take", tip:"To assume responsibility.", spoken:false},
+  {type:"gap", who:"To your coordinator", scenario:"Could we ___ forward next week's meeting to Monday?", answer:"bring", alt:["move"], tip:"To move something earlier.", spoken:false},
+  {type:"gap", who:"Staffroom", scenario:"Thanks for helping out, I really ___ it.", answer:"appreciate", alt:["value"], tip:"A warm way to say thanks.", spoken:true},
+  {type:"gap", who:"Kitchen", scenario:"\"How's the week going?\" \"Pretty full-___, to be honest.\"", answer:"on", tip:"An expression meaning very busy or intense.", spoken:true},
+  {type:"gap", who:"Staffroom", scenario:"\"Want a hand?\" \"That'd be great, thanks, no ___.\"", answer:"worries", alt:["dramas"], tip:"A relaxed Australian phrase.", spoken:true},
+  {type:"gap", who:"Leaving work", scenario:"See ya tomorrow, have a good ___!", answer:"one", alt:["night", "evening"], tip:"A friendly goodbye.", spoken:true},
+  {type:"gap", who:"Kitchen", scenario:"\"Sorry I'm late!\" \"All ___, mate.\"", answer:"good", alt:["fine"], tip:"A relaxed way to say no problem.", spoken:true},
+  {type:"gap", who:"Staffroom", scenario:"\"I got the job!\" \"Good ___ ya!\"", answer:"on", tip:"A phrase meaning well done.", spoken:true}
 ];
 
 const VOCAB = {
