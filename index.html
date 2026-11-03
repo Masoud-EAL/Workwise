@@ -6,6 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0f6e64">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="WorkWise">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
 <title>WorkWise · Workplace Communication Practice</title>
 <style>
   :root{
@@ -204,21 +212,21 @@ background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px 14p
 .how-row b{display:block;font-size:15px;margin-bottom:2px;}
 .how-row span{font-size:13.5px;color:var(--muted);line-height:1.4;}
 
-/* compact start screen: all buttons visible without scrolling */
-#startCard{padding:14px 16px 14px;}
-#startCard .center{justify-content:flex-start;gap:0;}
-#startCard h2{font-size:22px;margin:2px 0 4px;}
-#startCard p{font-size:14px;margin:0 0 10px;}
-#startCard .btn{padding-top:12px;padding-bottom:12px;font-size:16px;}
-#startCard .btn-vocab,#startCard .btn-fire,#startCard .btn-corp{margin-top:8px;}
-#startCard .how{gap:4px;margin:12px 0 4px;}
-#startCard .how-row{padding:6px 10px;border-radius:10px;}
-#startCard .how-row{gap:10px;}
-#startCard .how-row .he{font-size:18px;}
-#startCard .how-row b{display:inline;font-size:13.5px;margin:0 4px 0 0;}
-#startCard .how-row span{font-size:12.5px;line-height:1.3;}
-#startCard .btn-link{padding:4px;}
-#startCard .fineprint{margin:6px 0 0;font-size:12px;}
+/* start screen */
+#startCard{padding:22px 16px 16px;}
+#startCard .center{justify-content:space-between;gap:0;flex:1;}
+#startCard h2{font-size:23px;margin:0 0 6px;white-space:nowrap;}
+#startCard p.lead{font-size:14.5px;line-height:1.45;margin:0 0 16px;max-width:290px;}
+#startCard .btn{margin-top:0;padding:15px;font-size:17px;}
+#startCard .btn-vocab,#startCard .btn-fire,#startCard .btn-corp{margin-top:10px;}
+#startCard .how{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0 8px;}
+#startCard .how-row{align-items:center;text-align:left;gap:8px;padding:9px 10px;background:#fff;border:1px solid var(--line);border-radius:12px;}
+#startCard .how-row .he{font-size:22px;}
+#startCard .how-row b{display:block;font-size:13px;margin:0 0 1px;}
+#startCard .how-row span{font-size:11.5px;line-height:1.3;}
+.links-row{display:flex;justify-content:center;gap:2px 18px;flex-wrap:wrap;}
+#startCard .btn-link{padding:6px 4px;font-size:13.5px;}
+#startCard .fineprint{margin:4px 0 0;font-size:12px;}
 .fineprint{font-size:12.5px;color:var(--muted);font-weight:600;margin:0 0 16px;}
 .pill{
 font-size:13px;font-weight:700;padding:7px 12px;border-radius:99px;
@@ -290,7 +298,7 @@ color:var(--teal);margin:12px 2px 8px;}
   <div class="card" id="startCard">
     <div class="center">
       <h2>Communicate Better at Work</h2>
-      <p>Practise real workplace English. All offline.</p>
+      <p class="lead">Real workplace English: best replies, gap-fills, small talk and corporate speak.</p>
       <button class="btn btn-primary" id="startBtn">Start a session</button>
       <button class="btn btn-vocab" id="vocabBtn">📚 Vocabulary practice</button>
       <button class="btn btn-fire" id="fireBtn">⚡ Quick Fire (timed, harder)</button>
@@ -301,9 +309,11 @@ color:var(--teal);margin:12px 2px 8px;}
         <div class="how-row"><span class="he">☕</span><div><b>Small talk</b><span>Casual staffroom chat.</span></div></div>
         <div class="how-row"><span class="he">🕵️</span><div><b>Corporate Translator</b><span>Decode office jargon.</span></div></div>
       </div>
-      <button class="btn-link" id="browseBtn">Browse all expressions →</button>
-      <button class="btn-link" id="browseCorpBtn" style="margin-top:2px;">Browse corporate translations →</button>
-      <p class="fineprint">Works fully offline · no sign-in needed · instant feedback.</p>
+      <div class="links-row">
+        <button class="btn-link" id="browseBtn">Browse expressions →</button>
+        <button class="btn-link" id="browseCorpBtn">Corporate translations →</button>
+      </div>
+      <p class="fineprint">Works fully offline · no sign-in needed · instant feedback</p>
       <div class="err hidden" id="startErr" style="margin-top:14px;"></div>
     </div>
   </div>
